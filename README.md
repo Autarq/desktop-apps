@@ -20,3 +20,67 @@ This repo contains the frontend for [Desktop Editors](https://repo.mwaysolutions
 ## **For developers: Building from source 👨‍💻**
 
 This repository (`desktop-apps`) contains the frontend shell for the Desktop Editors. The core editing engine and conversion components are located in the main [DesktopEditors](https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps/DesktopEditors) repository.
+
+## Building the AUTARQ Office macOS apps
+
+`desktop-apps` is not built as a standalone macOS product. The reproducible
+AUTARQ macOS build is started from the `DesktopEditors` repository, which builds
+the native payload, runs Xcode, exports the branded apps, signs them, and runs
+the local verification checks.
+
+### Requirements
+
+* Apple Silicon Mac
+* Xcode installed and selected with `xcode-select`
+* Git and Python 3
+* Qt 5, for example Homebrew `qt@5`
+* At least 120 GiB free disk space
+
+### Build with this repo as the app frontend
+
+Clone both AUTARQ repositories next to each other:
+
+```sh
+mkdir -p ~/Dev/autarq-office-desktop
+cd ~/Dev/autarq-office-desktop
+
+git clone \
+  --branch codex/macos-build-docs \
+  ssh://git@repo.mwaysolutions.com:2022/blockscape/autarq/office/desktop-apps/DesktopEditors.git
+
+git clone \
+  --branch codex/macos-autarq-office-branding \
+  ssh://git@repo.mwaysolutions.com:2022/blockscape/autarq/office/desktop-apps/desktop-apps.git
+```
+
+Initialize the `DesktopEditors` submodules:
+
+```sh
+cd ~/Dev/autarq-office-desktop/DesktopEditors
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+Run the build from `DesktopEditors/build`, pointing it at this `desktop-apps`
+checkout:
+
+```sh
+cd ~/Dev/autarq-office-desktop/DesktopEditors/build
+./macos/build.sh --check
+DESKTOP_APPS_DIR=~/Dev/autarq-office-desktop/desktop-apps \
+  MIN_FREE_GIB=120 ./macos/build.sh arm64
+```
+
+The generated apps are written to:
+
+```text
+DesktopEditors/build/deploy/macos/arm64/AUTARQ Write.app
+DesktopEditors/build/deploy/macos/arm64/AUTARQ Sheets.app
+DesktopEditors/build/deploy/macos/arm64/AUTARQ Keynote.app
+DesktopEditors/build/deploy/macos/arm64/AUTARQ PDF.app
+DesktopEditors/build/deploy/macos/arm64/AUTARQ Draw.app
+```
+
+Without a Developer ID identity the apps are ad-hoc signed for local testing.
+Release DMG signing and notarization require Developer ID and notarization
+credentials.
