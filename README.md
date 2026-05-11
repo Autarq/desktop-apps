@@ -78,8 +78,12 @@ DesktopEditors/build/deploy/macos/arm64/AUTARQ Write.app
 DesktopEditors/build/deploy/macos/arm64/AUTARQ Sheets.app
 DesktopEditors/build/deploy/macos/arm64/AUTARQ Keynote.app
 DesktopEditors/build/deploy/macos/arm64/AUTARQ PDF.app
-DesktopEditors/build/deploy/macos/arm64/AUTARQ Draw.app
 ```
+
+The build installs the pinned ONLYOFFICE draw.io plugin into the supported
+Write, Sheets and Keynote bundles. `macos/scripts/install-drawio-plugin.sh` can
+also install the plugin into a prepared `sdkjs-plugins` directory, for example
+when testing the Xcode payload manually.
 
 Without a Developer ID identity the apps are ad-hoc signed for local testing.
 Release DMG signing and notarization require Developer ID and notarization
