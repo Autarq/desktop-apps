@@ -1,7 +1,7 @@
 {
   "name": "common",
   "version": "0.2.8",
-  "homepage": "https://github.com/Euro-Office",
+  "homepage": "https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps",
   "private": true,
   "dependencies": {
     "grunt": "^1.6.1",

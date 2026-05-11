@@ -853,7 +853,7 @@
 		FC035A5B24855E8C00AF820F /* ASCTabViewType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASCTabViewType.h; sourceTree = "<group>"; };
 		FC09073D1C1855A400D9E881 /* editors */ = {isa = PBXFileReference; lastKnownFileType = folder; name = editors; path = Vendor/ONLYOFFICE/editors; sourceTree = SOURCE_ROOT; };
 		FC0907401C186A7A00D9E881 /* converter */ = {isa = PBXFileReference; lastKnownFileType = folder; name = converter; path = Vendor/ONLYOFFICE/converter; sourceTree = SOURCE_ROOT; };
-		FC0BD6FB258B63F700C47F95 /* Euro-Office.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Euro-Office.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC0BD6FB258B63F700C47F95 /* AUTARQ Office.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AUTARQ Office.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC1127571BBAAC8000AA3648 /* ASCPopoverLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCPopoverLightView.h; sourceTree = "<group>"; };
 		FC1127581BBAAC8000AA3648 /* ASCPopoverLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCPopoverLightView.m; sourceTree = "<group>"; };
 		FC13B5272080BBF500524968 /* NSImage+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Extensions.h"; sourceTree = "<group>"; };
@@ -1010,7 +1010,7 @@
 		FCAF3EFC1BA31D3C00B42BAA /* ASCUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCUserInfoViewController.m; sourceTree = "<group>"; };
 		FCB454FD1C326A4E00FEACF2 /* PFMoveApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMoveApplication.h; sourceTree = "<group>"; };
 		FCB454FE1C326A4E00FEACF2 /* PFMoveApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMoveApplication.m; sourceTree = "<group>"; };
-		FCB4C73726DD018B0012C20D /* Euro-Office.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Euro-Office.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCB4C73726DD018B0012C20D /* AUTARQ Office.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AUTARQ Office.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCB4C73C26DD02630012C20D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FCB4C73D26DD02630012C20D /* ONLYOFFICE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ONLYOFFICE.entitlements; sourceTree = "<group>"; };
 		FCB4C73F26DD02630012C20D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1043,7 +1043,7 @@
 		FCB4C77826DD02640012C20D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FCB4C77A26DD02640012C20D /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		FCB4C77B26DD02640012C20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCBC42681B9D650400405301 /* Euro-Office.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Euro-Office.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCBC42681B9D650400405301 /* AUTARQ Office.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AUTARQ Office.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC426D1B9D650400405301 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FCBC426E1B9D650400405301 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		FCBC42701B9D650400405301 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
@@ -1555,9 +1555,9 @@
 		FCBC42691B9D650400405301 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FCBC42681B9D650400405301 /* Euro-Office.app */,
-				FC0BD6FB258B63F700C47F95 /* Euro-Office.app */,
-				FCB4C73726DD018B0012C20D /* Euro-Office.app */,
+				FCBC42681B9D650400405301 /* AUTARQ Office.app */,
+				FC0BD6FB258B63F700C47F95 /* AUTARQ Office.app */,
+				FCB4C73726DD018B0012C20D /* AUTARQ Office.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1865,8 +1865,8 @@
 			dependencies = (
 			);
 			name = "ONLYOFFICE-v8";
-			productName = "Euro-Office";
-			productReference = FC0BD6FB258B63F700C47F95 /* Euro-Office.app */;
+			productName = "AUTARQ Office";
+			productReference = FC0BD6FB258B63F700C47F95 /* AUTARQ Office.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FCB4C6BA26DD018B0012C20D /* ONLYOFFICE-arm */ = {
@@ -1886,8 +1886,8 @@
 			dependencies = (
 			);
 			name = "ONLYOFFICE-arm";
-			productName = "Euro-Office";
-			productReference = FCB4C73726DD018B0012C20D /* Euro-Office.app */;
+			productName = "AUTARQ Office";
+			productReference = FCB4C73726DD018B0012C20D /* AUTARQ Office.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FCBC42671B9D650400405301 /* ONLYOFFICE-x86_64 */ = {
@@ -1907,8 +1907,8 @@
 			dependencies = (
 			);
 			name = "ONLYOFFICE-x86_64";
-			productName = "Euro-Office";
-			productReference = FCBC42681B9D650400405301 /* Euro-Office.app */;
+			productName = "AUTARQ Office";
+			productReference = FCBC42681B9D650400405301 /* AUTARQ Office.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1919,7 +1919,7 @@
 			attributes = {
 				CLASSPREFIX = ASC;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Euro-Office contributors";
+				ORGANIZATIONNAME = "AUTARQ Office contributors";
 				TargetAttributes = {
 					FC0BD683258B63F700C47F95 = {
 						DevelopmentTeam = 2WH24U26GJ;
@@ -2226,7 +2226,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n#exit 0\n\nCreateDir() {\nif [ ! -d $1 ]; then\nmkdir -p $1\nelse\nrm -Rf $1\nmkdir -p $1\nfi\n}\n\nBASE_DIR=$(pwd)\nDST_DIR=\"${BASE_DIR}/Vendor/ONLYOFFICE\"\nSRC_BASE_DIR=\"${BASE_DIR}/../../build_tools/out/mac_64/onlyoffice/desktopeditors\"\n\n# Copy application resources\necho \"Copy application resources\"\nCreateDir \"${DST_DIR}/login\"\ncp -vR \"${SRC_BASE_DIR}/index.html\" \"${DST_DIR}/login/index.html\"\ncp -vR \"${SRC_BASE_DIR}/editors/webext/noconnect.html\" \"${DST_DIR}/login/noconnect.html\"\ncp -vR \"${SRC_BASE_DIR}/fonts\" \"${DST_DIR}/login/fonts\"\ncp -vR \"${BASE_DIR}/ONLYOFFICE/Resources/acknowledgments.html\" \"${DST_DIR}/login/acknowledgments.html\"\ncp -vR \"${SRC_BASE_DIR}/providers\" \"${DST_DIR}\"\n\n[ ! -d \"${DST_DIR}/license\" ] && mkdir -p \"${DST_DIR}/license\"\n\n# Copy editors and convertor\necho \"Copy editors and convertor\"\ncd \"$BASE_DIR\"\ncp -vR \"${SRC_BASE_DIR}/editors\" \"${DST_DIR}\"\ncp -vR \"${SRC_BASE_DIR}/converter\" \"${DST_DIR}\"\n\"${BASE_DIR}/scripts/brand-vendor-resources.sh\" \"${DST_DIR}\" \"${PRODUCT_NAME:-Euro-Office}\"\n";
+			shellScript = "#!/bin/sh\n\n#exit 0\n\nCreateDir() {\nif [ ! -d $1 ]; then\nmkdir -p $1\nelse\nrm -Rf $1\nmkdir -p $1\nfi\n}\n\nBASE_DIR=$(pwd)\nDST_DIR=\"${BASE_DIR}/Vendor/ONLYOFFICE\"\nSRC_BASE_DIR=\"${BASE_DIR}/../../build_tools/out/mac_64/onlyoffice/desktopeditors\"\n\n# Copy application resources\necho \"Copy application resources\"\nCreateDir \"${DST_DIR}/login\"\ncp -vR \"${SRC_BASE_DIR}/index.html\" \"${DST_DIR}/login/index.html\"\ncp -vR \"${SRC_BASE_DIR}/editors/webext/noconnect.html\" \"${DST_DIR}/login/noconnect.html\"\ncp -vR \"${SRC_BASE_DIR}/fonts\" \"${DST_DIR}/login/fonts\"\ncp -vR \"${BASE_DIR}/ONLYOFFICE/Resources/acknowledgments.html\" \"${DST_DIR}/login/acknowledgments.html\"\ncp -vR \"${SRC_BASE_DIR}/providers\" \"${DST_DIR}\"\n\n[ ! -d \"${DST_DIR}/license\" ] && mkdir -p \"${DST_DIR}/license\"\n\n# Copy editors and convertor\necho \"Copy editors and convertor\"\ncd \"$BASE_DIR\"\ncp -vR \"${SRC_BASE_DIR}/editors\" \"${DST_DIR}\"\ncp -vR \"${SRC_BASE_DIR}/converter\" \"${DST_DIR}\"\n\"${BASE_DIR}/scripts/brand-vendor-resources.sh\" \"${DST_DIR}\" \"${PRODUCT_NAME:-AUTARQ Office}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FC0BD6F6258B63F700C47F95 /* Rename symbols */ = {
@@ -2297,7 +2297,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n#exit 0\n\nCreateDir() {\nif [ ! -d $1 ]; then\nmkdir -p $1\nelse\nrm -Rf $1\nmkdir -p $1\nfi\n}\n\nBASE_DIR=$(pwd)\nDST_DIR=\"${BASE_DIR}/Vendor/ONLYOFFICE\"\nSRC_BASE_DIR=\"${BASE_DIR}/../../build_tools/out/mac_64/onlyoffice/desktopeditors\"\n\n# Copy application resources\necho \"Copy application resources\"\nCreateDir \"${DST_DIR}/login\"\ncp -vR \"${SRC_BASE_DIR}/index.html\" \"${DST_DIR}/login/index.html\"\ncp -vR \"${SRC_BASE_DIR}/editors/webext/noconnect.html\" \"${DST_DIR}/login/noconnect.html\"\ncp -vR \"${SRC_BASE_DIR}/fonts\" \"${DST_DIR}/login/fonts\"\ncp -vR \"${BASE_DIR}/ONLYOFFICE/Resources/acknowledgments.html\" \"${DST_DIR}/login/acknowledgments.html\"\ncp -vR \"${SRC_BASE_DIR}/providers\" \"${DST_DIR}\"\n\n[ ! -d \"${DST_DIR}/license\" ] && mkdir -p \"${DST_DIR}/license\"\n\n# Copy editors and convertor\necho \"Copy editors and convertor\"\ncp -vR \"${SRC_BASE_DIR}/editors\" \"${DST_DIR}\"\nrsync -av \"${SRC_BASE_DIR}/converter\" \"${DST_DIR}\"\n\"${BASE_DIR}/scripts/brand-vendor-resources.sh\" \"${DST_DIR}\" \"${PRODUCT_NAME:-Euro-Office}\"\n";
+			shellScript = "#!/bin/sh\n\n#exit 0\n\nCreateDir() {\nif [ ! -d $1 ]; then\nmkdir -p $1\nelse\nrm -Rf $1\nmkdir -p $1\nfi\n}\n\nBASE_DIR=$(pwd)\nDST_DIR=\"${BASE_DIR}/Vendor/ONLYOFFICE\"\nSRC_BASE_DIR=\"${BASE_DIR}/../../build_tools/out/mac_64/onlyoffice/desktopeditors\"\n\n# Copy application resources\necho \"Copy application resources\"\nCreateDir \"${DST_DIR}/login\"\ncp -vR \"${SRC_BASE_DIR}/index.html\" \"${DST_DIR}/login/index.html\"\ncp -vR \"${SRC_BASE_DIR}/editors/webext/noconnect.html\" \"${DST_DIR}/login/noconnect.html\"\ncp -vR \"${SRC_BASE_DIR}/fonts\" \"${DST_DIR}/login/fonts\"\ncp -vR \"${BASE_DIR}/ONLYOFFICE/Resources/acknowledgments.html\" \"${DST_DIR}/login/acknowledgments.html\"\ncp -vR \"${SRC_BASE_DIR}/providers\" \"${DST_DIR}\"\n\n[ ! -d \"${DST_DIR}/license\" ] && mkdir -p \"${DST_DIR}/license\"\n\n# Copy editors and convertor\necho \"Copy editors and convertor\"\ncp -vR \"${SRC_BASE_DIR}/editors\" \"${DST_DIR}\"\nrsync -av \"${SRC_BASE_DIR}/converter\" \"${DST_DIR}\"\n\"${BASE_DIR}/scripts/brand-vendor-resources.sh\" \"${DST_DIR}\" \"${PRODUCT_NAME:-AUTARQ Office}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FCB4C6BB26DD018B0012C20D /* Copy Library */ = {
@@ -2312,7 +2312,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n#exit 0\n\nCreateDir() {\nif [ ! -d $1 ]; then\nmkdir -p $1\nelse\nrm -Rf $1\nmkdir -p $1\nfi\n}\n\nBASE_DIR=$(pwd)\nDST_DIR=\"${BASE_DIR}/Vendor/ONLYOFFICE\"\nSRC_BASE_DIR=\"${BASE_DIR}/../../build_tools/out/mac_arm64/onlyoffice/desktopeditors\"\n\n# Copy application resources\necho \"Copy application resources\"\nCreateDir \"${DST_DIR}/login\"\ncp -vR \"${SRC_BASE_DIR}/index.html\" \"${DST_DIR}/login/index.html\"\ncp -vR \"${SRC_BASE_DIR}/editors/webext/noconnect.html\" \"${DST_DIR}/login/noconnect.html\"\ncp -vR \"${SRC_BASE_DIR}/fonts\" \"${DST_DIR}/login/fonts\"\ncp -vR \"${BASE_DIR}/ONLYOFFICE/Resources/acknowledgments.html\" \"${DST_DIR}/login/acknowledgments.html\"\ncp -vR \"${SRC_BASE_DIR}/providers\" \"${DST_DIR}\"\n\n[ ! -d \"${DST_DIR}/license\" ] && mkdir -p \"${DST_DIR}/license\"\n\n# Copy editors and convertor\necho \"Copy editors and convertor\"\ncd \"$BASE_DIR\"\ncp -vR \"${SRC_BASE_DIR}/editors\" \"${DST_DIR}\"\ncp -vR \"${SRC_BASE_DIR}/converter\" \"${DST_DIR}\"\n\"${BASE_DIR}/scripts/brand-vendor-resources.sh\" \"${DST_DIR}\" \"${PRODUCT_NAME:-Euro-Office}\"\n";
+			shellScript = "#!/bin/sh\n\n#exit 0\n\nCreateDir() {\nif [ ! -d $1 ]; then\nmkdir -p $1\nelse\nrm -Rf $1\nmkdir -p $1\nfi\n}\n\nBASE_DIR=$(pwd)\nDST_DIR=\"${BASE_DIR}/Vendor/ONLYOFFICE\"\nSRC_BASE_DIR=\"${BASE_DIR}/../../build_tools/out/mac_arm64/onlyoffice/desktopeditors\"\n\n# Copy application resources\necho \"Copy application resources\"\nCreateDir \"${DST_DIR}/login\"\ncp -vR \"${SRC_BASE_DIR}/index.html\" \"${DST_DIR}/login/index.html\"\ncp -vR \"${SRC_BASE_DIR}/editors/webext/noconnect.html\" \"${DST_DIR}/login/noconnect.html\"\ncp -vR \"${SRC_BASE_DIR}/fonts\" \"${DST_DIR}/login/fonts\"\ncp -vR \"${BASE_DIR}/ONLYOFFICE/Resources/acknowledgments.html\" \"${DST_DIR}/login/acknowledgments.html\"\ncp -vR \"${SRC_BASE_DIR}/providers\" \"${DST_DIR}\"\n\n[ ! -d \"${DST_DIR}/license\" ] && mkdir -p \"${DST_DIR}/license\"\n\n# Copy editors and convertor\necho \"Copy editors and convertor\"\ncd \"$BASE_DIR\"\ncp -vR \"${SRC_BASE_DIR}/editors\" \"${DST_DIR}\"\ncp -vR \"${SRC_BASE_DIR}/converter\" \"${DST_DIR}\"\n\"${BASE_DIR}/scripts/brand-vendor-resources.sh\" \"${DST_DIR}\" \"${PRODUCT_NAME:-AUTARQ Office}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FCB4C73226DD018B0012C20D /* Rename symbols */ = {
@@ -3156,8 +3156,8 @@
 					"$(inherited)",
 					"-headerpad_max_install_names",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.euro-office.desktopeditors;
-				PRODUCT_NAME = "Euro-Office";
+				PRODUCT_BUNDLE_IDENTIFIER = com.autarq.office;
+				PRODUCT_NAME = "AUTARQ Office";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -3202,8 +3202,8 @@
 					"$(inherited)",
 					"-headerpad_max_install_names",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.euro-office.desktopeditors;
-				PRODUCT_NAME = "Euro-Office";
+				PRODUCT_BUNDLE_IDENTIFIER = com.autarq.office;
+				PRODUCT_NAME = "AUTARQ Office";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -3248,8 +3248,8 @@
 					"$(inherited)",
 					"-headerpad_max_install_names",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.euro-office.desktopeditors;
-				PRODUCT_NAME = "Euro-Office";
+				PRODUCT_BUNDLE_IDENTIFIER = com.autarq.office;
+				PRODUCT_NAME = "AUTARQ Office";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -3294,8 +3294,8 @@
 					"$(inherited)",
 					"-headerpad_max_install_names",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.euro-office.desktopeditors;
-				PRODUCT_NAME = "Euro-Office";
+				PRODUCT_BUNDLE_IDENTIFIER = com.autarq.office;
+				PRODUCT_NAME = "AUTARQ Office";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -3420,8 +3420,8 @@
 					"$(inherited)",
 					"-headerpad_max_install_names",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.euro-office.desktopeditors;
-				PRODUCT_NAME = "Euro-Office";
+				PRODUCT_BUNDLE_IDENTIFIER = com.autarq.office;
+				PRODUCT_NAME = "AUTARQ Office";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -3466,8 +3466,8 @@
 					"$(inherited)",
 					"-headerpad_max_install_names",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.euro-office.desktopeditors;
-				PRODUCT_NAME = "Euro-Office";
+				PRODUCT_BUNDLE_IDENTIFIER = com.autarq.office;
+				PRODUCT_NAME = "AUTARQ Office";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

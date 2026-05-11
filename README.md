@@ -4,7 +4,7 @@
   <a href="http://www.gnu.org/licenses/agpl-3.0.html"><img alt="License" src="https://img.shields.io/badge/License-AGPL%20v3.0-green?style=for-the-badge"></a>  
 </p> 
 
-This repo contains the frontend for [Desktop Editors](https://github.com/Euro-Office/DesktopEditors) which builds the program interface. [Desktop Editors](https://github.com/Euro-Office/DesktopEditors) is a free and open-source office suite that works offline on your Windows, Linux, and macOS computer. It offers maximum compatibility with Microsoft Office formats (DOCX, XLSX, PPTX) and allows you to connect to the cloud for real-time collaboration.
+This repo contains the frontend for [Desktop Editors](https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps/DesktopEditors) which builds the program interface. [Desktop Editors](https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps/DesktopEditors) is a free and open-source office suite that works offline on your Windows, Linux, and macOS computer. It offers maximum compatibility with Microsoft Office formats (DOCX, XLSX, PPTX) and allows you to connect to the cloud for real-time collaboration.
 
 ## **Why choose Desktop Editors? ✨**
 
@@ -19,4 +19,4 @@ This repo contains the frontend for [Desktop Editors](https://github.com/Euro-Of
 
 ## **For developers: Building from source 👨‍💻**
 
-This repository (`desktop-apps`) contains the frontend shell for the Desktop Editors. The core editing engine and conversion components are located in the main [DesktopEditors](https://github.com/Euro-Office/DesktopEditors) repository.
+This repository (`desktop-apps`) contains the frontend shell for the Desktop Editors. The core editing engine and conversion components are located in the main [DesktopEditors](https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps/DesktopEditors) repository.

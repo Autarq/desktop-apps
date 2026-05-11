@@ -228,8 +228,8 @@ utils.defines.FileFormat = {
 
 utils.defines.DBLCLICK_LOCK_TIMEOUT = 800;
 utils.defines.links = {
-    regnew: 'https://github.com/Euro-Office',
-    restorepass: 'https://github.com/Euro-Office'
+    regnew: 'https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps',
+    restorepass: 'https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps'
 };
 
 utils.formatToEditor = function(f) {

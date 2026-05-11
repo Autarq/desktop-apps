@@ -1,9 +1,9 @@
 {
-  "title": "Euro-Office",
+  "title": "AUTARQ Office",
   "background": "background.png",
   "icon-size": 128,
   "contents": [
-    { "x": 193, "y": 210, "type": "file", "path": "../../build/Euro-Office.app" },
+    { "x": 193, "y": 210, "type": "file", "path": "../../build/AUTARQ Office.app" },
     { "x": 445, "y": 212, "type": "link", "path": "/Applications" }
   ]
 }

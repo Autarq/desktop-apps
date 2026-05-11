@@ -1,6 +1,6 @@
 {
     "provider": "onlyoffice",
-    "name" : "Euro-Office",
+    "name" : "AUTARQ Office",
     "check" : {
         "url":"/api/2.0/capabilities"
     },

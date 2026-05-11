@@ -27,7 +27,7 @@ platform :mac do
   lane :common_release do |options|
     build = "build"
     scheme = options[:scheme]
-    app_name = ENV.fetch("APP_NAME", "Euro-Office")
+    app_name = ENV.fetch("APP_NAME", "AUTARQ Office")
     app = "#{build}/#{app_name}.app"
     git_suffix = options[:git_suffix]
     edition = options[:edition]
@@ -68,7 +68,7 @@ platform :mac do
       output_directory: build,
       codesigning_identity: codesigning_identity,
       export_method: 'developer-id',
-      xcargs: "URL_WEBAPPS_HELP=#{ENV.fetch('URL_WEBAPPS_HELP', 'https://github.com/Euro-Office')}",
+      xcargs: "URL_WEBAPPS_HELP=#{ENV.fetch('URL_WEBAPPS_HELP', 'https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps')}",
       skip_package_pkg: true
     )
 

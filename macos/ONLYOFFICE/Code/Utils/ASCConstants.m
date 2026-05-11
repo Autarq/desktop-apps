@@ -102,9 +102,9 @@
     }
 
     NSDictionary * appInfo = @{
-                               kRegHelpUrl: @"https://github.com/Euro-Office",
-                               kHelpUrl: @"https://github.com/Euro-Office",
-                               kRegistrationPortalUrl: @"https://github.com/Euro-Office"
+                               kRegHelpUrl: @"https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps",
+                               kHelpUrl: @"https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps",
+                               kRegistrationPortalUrl: @"https://repo.mwaysolutions.com/blockscape/autarq/office/desktop-apps"
                                };
 
     return appInfo[key];
@@ -240,15 +240,15 @@
                      @"extension"   : @"fb2"
              },
              @(AVS_OFFICESTUDIO_FILE_DOCUMENT_DOCXF): @{
-                     @"description" : NSLocalizedString(@"Euro-Office Document Form Template", nil),
+                     @"description" : NSLocalizedString(@"AUTARQ Office Document Form Template", nil),
                      @"extension"   : @"docxf"
              },
              @(AVS_OFFICESTUDIO_FILE_DOCUMENT_OFORM): @{
-                     @"description" : NSLocalizedString(@"Euro-Office Fillable Online Form", nil),
+                     @"description" : NSLocalizedString(@"AUTARQ Office Fillable Online Form", nil),
                      @"extension"   : @"oform"
              },
              @(AVS_OFFICESTUDIO_FILE_DOCUMENT_OFORM_PDF): @{
-                     @"description" : NSLocalizedString(@"Euro-Office Form Document", nil),
+                     @"description" : NSLocalizedString(@"AUTARQ Office Form Document", nil),
                      @"extension"   : @"pdf"
              },
              @(AVS_OFFICESTUDIO_FILE_IMAGE_PNG): @{

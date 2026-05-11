@@ -7,8 +7,8 @@
 /* Class = "NSMenuItem"; title = "Customize Toolbar…"; ObjectID = "1UK-8n-QPP"; */
 "1UK-8n-QPP.title" = "Araç Çubuğunu Özelleştir…";
 
-/* Class = "NSMenuItem"; title = "Euro-Office"; ObjectID = "1Xt-HY-uBw"; */
-"1Xt-HY-uBw.title" = "Euro-Office";
+/* Class = "NSMenuItem"; title = "AUTARQ Office"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "AUTARQ Office";
 
 /* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
 "2oI-Rn-ZJC.title" = "Dönüşümler";
@@ -28,11 +28,11 @@
 /* Class = "NSMenuItem"; title = "License Agreement"; ObjectID = "4et-TX-a4m"; */
 "4et-TX-a4m.title" = "Lisans Anlaşması";
 
-/* Class = "NSMenuItem"; title = "Quit Euro-Office"; ObjectID = "4sb-4s-VLi"; */
-"4sb-4s-VLi.title" = "Euro-Office’i kapat";
+/* Class = "NSMenuItem"; title = "Quit AUTARQ Office"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "AUTARQ Office’i kapat";
 
-/* Class = "NSMenuItem"; title = "About Euro-Office"; ObjectID = "5kV-Vb-QxS"; */
-"5kV-Vb-QxS.title" = " Euro-Office Hakkında";
+/* Class = "NSMenuItem"; title = "About AUTARQ Office"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = " AUTARQ Office Hakkında";
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
 "5QF-Oa-p0T.title" = "Düzenle";
@@ -211,8 +211,8 @@
 /* Class = "NSMenu"; title = "Baseline"; ObjectID = "ijk-EB-dga"; */
 "ijk-EB-dga.title" = "Alt Çizgi";
 
-/* Class = "NSWindow"; title = "Euro-Office"; ObjectID = "IQv-IB-iLA"; */
-"IQv-IB-iLA.title" = "Euro-Office";
+/* Class = "NSWindow"; title = "AUTARQ Office"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "AUTARQ Office";
 
 /* Class = "NSMenuItem"; title = "Justify"; ObjectID = "J5U-5w-g23"; */
 "J5U-5w-g23.title" = "Doğrula";
@@ -232,8 +232,8 @@
 /* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "KaW-ft-85H"; */
 "KaW-ft-85H.title" = "Kaydedilmişe Döndür";
 
-/* Class = "NSTabViewItem"; label = "Euro-Office"; ObjectID = "kcg-El-49G"; */
-"kcg-El-49G.label" = "Euro-Office";
+/* Class = "NSTabViewItem"; label = "AUTARQ Office"; ObjectID = "kcg-El-49G"; */
+"kcg-El-49G.label" = "AUTARQ Office";
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
 "Kd2-mp-pUS.title" = "Tümünü Göster";
@@ -274,8 +274,8 @@
 /* Class = "NSMenuItem"; title = "Loosen"; ObjectID = "ogc-rX-tC1"; */
 "ogc-rX-tC1.title" = "Gevşet";
 
-/* Class = "NSMenuItem"; title = "Hide Euro-Office"; ObjectID = "Olw-nP-bQN"; */
-"Olw-nP-bQN.title" = " Euro-Office’i Gizle";
+/* Class = "NSMenuItem"; title = "Hide AUTARQ Office"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = " AUTARQ Office’i Gizle";
 
 /* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
 "OwM-mh-QMV.title" = "Öncekini Bul";
@@ -361,8 +361,8 @@
 /* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "UEZ-Bs-lqG"; */
 "UEZ-Bs-lqG.title" = "Büyük Harf Yap";
 
-/* Class = "NSMenu"; title = "Euro-Office"; ObjectID = "uQy-DD-JDr"; */
-"uQy-DD-JDr.title" = "Euro-Office";
+/* Class = "NSMenu"; title = "AUTARQ Office"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "AUTARQ Office";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "Kes";
