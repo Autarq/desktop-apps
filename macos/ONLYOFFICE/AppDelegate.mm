@@ -74,6 +74,106 @@
 
 @implementation AppDelegate
 
+- (NSString *)eoProductComponent {
+    NSString *component = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"EOProductComponent"];
+    return ([component isKindOfClass:[NSString class]] && component.length > 0) ? component : nil;
+}
+
+- (NSArray *)eoAllowedOfficeFileTypesForCurrentProductIncludingCsvTxt:(BOOL)includeCsvTxt {
+    NSString *component = [self eoProductComponent];
+
+    if ([component isEqualToString:@"text"]) {
+        return @[@"docx", @"doc", @"odt", @"ott", @"rtf", @"txt", @"htm", @"html", @"dotx",
+                 @"fodt", @"xml", @"epub", @"mht", @"fb2", @"pages", @"hwp", @"hwpx", @"hml"];
+    } else if ([component isEqualToString:@"spreadsheet"]) {
+        NSMutableArray *types = [@[@"xlsx", @"xls", @"ods", @"xltx", @"ots", @"fods", @"csv", @"xlsm",
+                                  @"xlsb", @"numbers"] mutableCopy];
+        if (includeCsvTxt) {
+            [types addObjectsFromArray:@[@"tsv"]];
+        }
+        return types;
+    } else if ([component isEqualToString:@"presentation"]) {
+        return @[@"ppt", @"pptx", @"odp", @"ppsx", @"pps", @"potx", @"otp", @"key", @"odg"];
+    } else if ([component isEqualToString:@"pdf"]) {
+        return @[@"pdf", @"docxf", @"oform"];
+    }
+
+    return nil;
+}
+
+- (NSArray *)eoAllowedOfficeFileTypesForSuiteIncludingCsvTxt:(BOOL)includeCsvTxt {
+    NSMutableArray *filter = [NSMutableArray array];
+    [filter addObjectsFromArray:[ASCConstants documents]];
+    [filter addObjectsFromArray:[ASCConstants spreadsheets]];
+    [filter addObjectsFromArray:[ASCConstants presentations]];
+    [filter addObjectsFromArray:[ASCConstants draws]];
+
+    if (includeCsvTxt) {
+        [filter addObjectsFromArray:[ASCConstants csvtxt]];
+    }
+
+    return filter;
+}
+
+- (NSArray *)eoOfficeFileTypesForCurrentProductOrSuiteIncludingCsvTxt:(BOOL)includeCsvTxt {
+    NSArray *productFileTypes = [self eoAllowedOfficeFileTypesForCurrentProductIncludingCsvTxt:includeCsvTxt];
+    return productFileTypes ?: [self eoAllowedOfficeFileTypesForSuiteIncludingCsvTxt:includeCsvTxt];
+}
+
+- (NSArray *)eoConstrainOfficeFileTypesToCurrentProduct:(NSArray *)fileTypes fallbackToProduct:(BOOL)fallbackToProduct {
+    NSArray *productFileTypes = [self eoAllowedOfficeFileTypesForCurrentProductIncludingCsvTxt:YES];
+    if (!productFileTypes) {
+        return fileTypes;
+    }
+
+    NSSet *productFileTypeSet = [NSSet setWithArray:productFileTypes];
+    NSMutableArray *filteredFileTypes = [NSMutableArray array];
+    NSMutableSet *seenFileTypes = [NSMutableSet set];
+
+    for (NSString *fileType in fileTypes) {
+        NSString *normalizedFileType = [fileType lowercaseString];
+        if ([productFileTypeSet containsObject:normalizedFileType] && ![seenFileTypes containsObject:normalizedFileType]) {
+            [filteredFileTypes addObject:normalizedFileType];
+            [seenFileTypes addObject:normalizedFileType];
+        }
+    }
+
+    if (filteredFileTypes.count > 0) {
+        return filteredFileTypes;
+    }
+
+    return fallbackToProduct ? productFileTypes : filteredFileTypes;
+}
+
+- (BOOL)eoCanOpenOfficeFileAtPath:(NSString *)filePath {
+    NSArray *productFileTypes = [self eoAllowedOfficeFileTypesForCurrentProductIncludingCsvTxt:YES];
+    if (!productFileTypes) {
+        return YES;
+    }
+
+    NSString *extension = [[filePath pathExtension] lowercaseString];
+    return extension.length > 0 && [[NSSet setWithArray:productFileTypes] containsObject:extension];
+}
+
+- (BOOL)eoCurrentProductAllowsNewMenuTag:(NSInteger)tag {
+    NSString *component = [self eoProductComponent];
+    if (!component) {
+        return YES;
+    }
+
+    if ([component isEqualToString:@"text"]) {
+        return tag == 0;
+    } else if ([component isEqualToString:@"presentation"]) {
+        return tag == 1;
+    } else if ([component isEqualToString:@"spreadsheet"]) {
+        return tag == 2;
+    } else if ([component isEqualToString:@"pdf"]) {
+        return tag == 3;
+    }
+
+    return YES;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
     
@@ -251,7 +351,17 @@
         NSMutableArray<NSString *> * processedFileList = [NSMutableArray array];
 
         for (NSString * filePath in filenames) {
-            if ([externalDelegate onShouldOpenFile:filePath]) {
+            if ([self eoCanOpenOfficeFileAtPath:filePath] && [externalDelegate onShouldOpenFile:filePath]) {
+                [processedFileList addObject:filePath];
+            }
+        }
+
+        filenames = processedFileList;
+    } else {
+        NSMutableArray<NSString *> * processedFileList = [NSMutableArray array];
+
+        for (NSString * filePath in filenames) {
+            if ([self eoCanOpenOfficeFileAtPath:filePath]) {
                 [processedFileList addObject:filePath];
             }
         }
@@ -286,28 +396,36 @@
                                             action:@selector(onMenuNew:)
                                      keyEquivalent:@""];
     [itemNewDoc setTag: 0];
-    [menu addItem: itemNewDoc];
+    if ([self eoCurrentProductAllowsNewMenuTag:itemNewDoc.tag]) {
+        [menu addItem: itemNewDoc];
+    }
     
     item_text = NSLocalizedStringWithDefaultValue(@"new-spreadsheet", @"Localizable", [NSBundle mainBundle], @"New Spreadsheet", nil);
     itemNewDoc = [[NSMenuItem alloc] initWithTitle:item_text
                                             action:@selector(onMenuNew:)
                                      keyEquivalent:@""];
     [itemNewDoc setTag: 2];
-    [menu addItem: itemNewDoc];
+    if ([self eoCurrentProductAllowsNewMenuTag:itemNewDoc.tag]) {
+        [menu addItem: itemNewDoc];
+    }
     
     item_text = NSLocalizedStringWithDefaultValue(@"new-presentation", @"Localizable", [NSBundle mainBundle], @"New Presentation", nil);
     itemNewDoc = [[NSMenuItem alloc] initWithTitle:item_text
                                             action:@selector(onMenuNew:)
                                      keyEquivalent:@""];
     [itemNewDoc setTag: 1];
-    [menu addItem: itemNewDoc];
+    if ([self eoCurrentProductAllowsNewMenuTag:itemNewDoc.tag]) {
+        [menu addItem: itemNewDoc];
+    }
     
     item_text = NSLocalizedStringWithDefaultValue(@"new-pdfform", @"Localizable", [NSBundle mainBundle], @"New PDF Form", nil);
     itemNewDoc = [[NSMenuItem alloc] initWithTitle:item_text
                                             action:@selector(onMenuNew:)
                                      keyEquivalent:@""];
     [itemNewDoc setTag: 3];
-    [menu addItem: itemNewDoc];
+    if ([self eoCurrentProductAllowsNewMenuTag:itemNewDoc.tag]) {
+        [menu addItem: itemNewDoc];
+    }
 
     return menu;
 }
@@ -518,6 +636,12 @@
         [item setTitle:[NSString stringWithFormat:NSLocalizedString(@"Quit %@", nil), productName]];
         return YES;
     } else if ([item action] == @selector(onMenuNew:)) {
+        if (item.tag != 100) {
+            BOOL itemAllowedForProduct = [self eoCurrentProductAllowsNewMenuTag:item.tag];
+            [item setHidden:!itemAllowedForProduct];
+            return hasKeyWindow && itemAllowedForProduct;
+        }
+
         return hasKeyWindow;
     } else if ([item action] == @selector(onMenuOpen:)) {
         return hasKeyWindow;
@@ -569,6 +693,10 @@
 
 - (IBAction)onMenuNew:(NSMenuItem *)sender {
     if (100 == sender.tag) {
+        return;
+    }
+
+    if (![self eoCurrentProductAllowsNewMenuTag:sender.tag]) {
         return;
     }
     
@@ -941,7 +1069,7 @@
         if ([params[@"action"] isEqualToNumber:@(ASCTabActionOpenLocalRecentFile)] ||
             [params[@"action"] isEqualToNumber:@(ASCTabActionOpenLocalFile)])
         {
-            if ( ![self canOpenFile:params[@"path"] tab:nil] ) {
+            if ( ![self eoCanOpenOfficeFileAtPath:params[@"path"]] || ![self canOpenFile:params[@"path"] tab:nil] ) {
                 return;
             }
         }
@@ -1218,11 +1346,7 @@
         }
         
         NSOpenPanel * openPanel = [NSOpenPanel openPanel];
-        NSMutableArray * filter = [NSMutableArray array];
-        [filter addObjectsFromArray:[ASCConstants documents]];
-        [filter addObjectsFromArray:[ASCConstants spreadsheets]];
-        [filter addObjectsFromArray:[ASCConstants presentations]];
-        [filter addObjectsFromArray:[ASCConstants draws]];
+        NSArray *filter = [self eoOfficeFileTypesForCurrentProductOrSuiteIncludingCsvTxt:NO];
         
         openPanel.canChooseDirectories = NO;
         openPanel.allowsMultipleSelection = NO;
@@ -1343,14 +1467,7 @@
         NSArray * allowedFileTypes = @[];
         
         if ([fileTypes length] == 0) {
-            NSMutableArray * filter = [NSMutableArray array];
-            [filter addObjectsFromArray:[ASCConstants documents]];
-            [filter addObjectsFromArray:[ASCConstants spreadsheets]];
-            [filter addObjectsFromArray:[ASCConstants presentations]];
-            [filter addObjectsFromArray:[ASCConstants draws]];
-            [filter addObjectsFromArray:[ASCConstants csvtxt]];
-            
-            allowedFileTypes = filter;
+            allowedFileTypes = [self eoOfficeFileTypesForCurrentProductOrSuiteIncludingCsvTxt:YES];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterImage]) {
             allowedFileTypes = [ASCConstants images];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterAudio]) {
@@ -1360,25 +1477,28 @@
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterPlugin]) {
             allowedFileTypes = [ASCConstants plugins];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterDocument]) {
-            allowedFileTypes = [ASCConstants documents];
+            allowedFileTypes = [self eoConstrainOfficeFileTypesToCurrentProduct:[ASCConstants documents] fallbackToProduct:YES];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterSpreadsheet]) {
-            allowedFileTypes = [ASCConstants spreadsheets];
+            allowedFileTypes = [self eoConstrainOfficeFileTypesToCurrentProduct:[ASCConstants spreadsheets] fallbackToProduct:YES];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterPresentation]) {
-            allowedFileTypes = [ASCConstants presentations];
+            allowedFileTypes = [self eoConstrainOfficeFileTypesToCurrentProduct:[ASCConstants presentations] fallbackToProduct:YES];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterCsvTxt]) {
-            allowedFileTypes = [ASCConstants csvtxt];
+            allowedFileTypes = [self eoConstrainOfficeFileTypesToCurrentProduct:[ASCConstants csvtxt] fallbackToProduct:YES];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterCrypto]) {
             allowedFileTypes = [ASCConstants cancryptformats];
         } else if ([fileTypes isEqualToString:CEFOpenFileFilterXML]) {
             allowedFileTypes = [ASCConstants xmldata];
         } else if ([fileTypes isEqualToString:@"any"] || [fileTypes isEqualToString:@"*.*"]) {
-            //            allowedFileTypes = @[@"*.*"];
+            NSArray *productFileTypes = [self eoAllowedOfficeFileTypesForCurrentProductIncludingCsvTxt:YES];
+            if (productFileTypes) {
+                allowedFileTypes = productFileTypes;
+            }
         } else {
             // filters come in view "*.docx *.pptx *.xlsx"
             NSError *error = nil;
             NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:@"[\\(\\)\\*\\.]" options:NSRegularExpressionCaseInsensitive error:&error];
             NSString * filters = [regex stringByReplacingMatchesInString:fileTypes options:0 range:NSMakeRange(0, [fileTypes length]) withTemplate:@""];
-            allowedFileTypes = [filters componentsSeparatedByString:@" "];
+            allowedFileTypes = [self eoConstrainOfficeFileTypesToCurrentProduct:[filters componentsSeparatedByString:@" "] fallbackToProduct:YES];
         }
         
         NSOpenPanel * openPanel = [NSOpenPanel openPanel];

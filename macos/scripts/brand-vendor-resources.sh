@@ -4,6 +4,10 @@ set -euo pipefail
 vendor_dir="${1:?vendor resources directory is required}"
 product_name="${2:-AUTARQ Office}"
 export EO_PRODUCT_NAME="${product_name}"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+desktop_apps_dir="$(cd "${script_dir}/../.." && pwd)"
+loginpage_dir="${desktop_apps_dir}/common/loginpage"
+branding_dir="${desktop_apps_dir}/macos/ONLYOFFICE/Resources/Branding"
 
 if [[ ! -d "${vendor_dir}" ]]; then
   echo "brand-vendor-resources: vendor directory does not exist: ${vendor_dir}" >&2
@@ -55,3 +59,23 @@ find "${vendor_dir}" -type f \
     s/\Q$legacy_slug\E/autarq-office/g;
     s/\Q$legacy_mark\E/autarqOfficeMark/g;
   '
+
+provider_assets_dir="${vendor_dir}/providers/onlyoffice/assets"
+if [[ -d "${provider_assets_dir}" ]]; then
+  for asset in buttonlogo.svg buttonlogo_dark.svg listicon.svg listicon_dark.svg; do
+    if [[ -f "${loginpage_dir}/providers/onlyoffice/assets/${asset}" ]]; then
+      cp -f "${loginpage_dir}/providers/onlyoffice/assets/${asset}" "${provider_assets_dir}/${asset}"
+    fi
+  done
+fi
+
+for logo in idx-logo-light.svg idx-logo-dark.svg; do
+  if [[ -f "${vendor_dir}/login/res/img/${logo}" && -f "${loginpage_dir}/res/img/${logo}" ]]; then
+    cp -f "${loginpage_dir}/res/img/${logo}" "${vendor_dir}/login/res/img/${logo}"
+  fi
+done
+
+about_logo="${vendor_dir}/editors/web-apps/apps/common/main/resources/img/about/logo.svg"
+if [[ -f "${about_logo}" && -f "${branding_dir}/autarq-about-logo.svg" ]]; then
+  cp -f "${branding_dir}/autarq-about-logo.svg" "${about_logo}"
+fi
