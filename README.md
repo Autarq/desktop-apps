@@ -85,6 +85,11 @@ Write, Sheets and Keynote bundles. `macos/scripts/install-drawio-plugin.sh` can
 also install the plugin into a prepared `sdkjs-plugins` directory, for example
 when testing the Xcode payload manually.
 
+The bundled AI agent is preconfigured from the `DesktopEditors` macOS exporter
+with the AUTARQ OpenAI-compatible endpoint. Pass `AUTARQ_AI_API_KEY` only for a
+private local build where embedding the key into the generated `.app` bundle is
+acceptable; do not commit keys.
+
 Without a Developer ID identity the apps are ad-hoc signed for local testing.
 Release DMG signing and notarization require Developer ID and notarization
 credentials.
