@@ -66,12 +66,19 @@ Write-Host "MOVE: $BuildDir\desktop\editors\web-apps\apps\*\main\resources\help\
 Get-ChildItem -Directory `
     -Path "$BuildDir\desktop\editors\web-apps\apps\*\main\resources\help" `
     | ForEach-Object {
-        $src = $_.FullName | Resolve-Path -Relative
-        $dst = $src.Replace("$BuildDir\desktop", "$BuildDir\help")
+        $src = $_.FullName
+        $dst = $src.Replace(
+            (Join-Path $BuildDir "desktop"),
+            (Join-Path $BuildDir "help")
+        )
+
+        if ($src -eq $dst) {
+            throw "Refusing to move help directory onto itself: $src"
+        }
 
         Write-Host "MOVE: $src > $dst"
         New-Item -ItemType Directory -Force -Path "$dst\.." | Out-Null
-        Move-Item -Path "$src" -Destination "$dst"
+        Move-Item -LiteralPath "$src" -Destination "$dst"
     }
 
 # "$BuildDir\desktop: {0:0.00} MB" -f ((Get-ChildItem -Recurse `
