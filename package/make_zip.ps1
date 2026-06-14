@@ -17,6 +17,7 @@ if (-not $BuildDir) {
 if (-not (Test-Path "$BuildDir")) {
     Write-Error "Path `"$BuildDir`" does not exist"
 }
+$ResolvedBuildDir = (Resolve-Path -LiteralPath "$BuildDir").ProviderPath
 $ZipFile = switch ($Target) {
     "commercial" { "$CompanyName-$ProductName-Enterprise-$Version-$Arch.zip" }
     "xp"         { "$CompanyName-$ProductName-XP-$Version-$Arch.zip" }
@@ -37,22 +38,38 @@ ZipFile     = $ZipFile
 
 Write-Host "`n[ Create archive ]"
 
-New-Item -ItemType Directory -Force -Path "zip" | Out-Null
-Push-Location "zip"
+$ZipDir = Join-Path $PSScriptRoot "zip"
+$ZipPath = Join-Path $ZipDir $ZipFile
+New-Item -ItemType Directory -Force -Path $ZipDir | Out-Null
 
-if (Test-Path "$ZipFile") {
-    Write-Host "DELETE: $ZipFile"
-    Remove-Item -Force -LiteralPath "$ZipFile"
+if (Test-Path -LiteralPath "$ZipPath") {
+    Write-Host "DELETE: $ZipPath"
+    Remove-Item -Force -LiteralPath "$ZipPath"
 }
 
-Write-Host "7z a -y $ZipFile ..\$BuildDir\desktop\*"
-& 7z a -y "$ZipFile" "..\$BuildDir\desktop\*"
-if ($LastExitCode -ne 0) { throw }
+function Add-ArchiveContent {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$SourceDir
+    )
+
+    if (-not (Test-Path -LiteralPath "$SourceDir")) {
+        throw "Path `"$SourceDir`" does not exist"
+    }
+
+    Push-Location "$SourceDir"
+    try {
+        Write-Host "7z a -y $ZipPath *"
+        & 7z a -y "$ZipPath" "*"
+        if ($LastExitCode -ne 0) { throw }
+    }
+    finally {
+        Pop-Location
+    }
+}
+
+Add-ArchiveContent -SourceDir (Join-Path $ResolvedBuildDir "desktop")
 
 if ($Target -eq "standalone" -or $Target -eq "xp") {
-    Write-Host "7z a -y $ZipFile ..\$BuildDir\help\*"
-    & 7z a -y "$ZipFile" "..\$BuildDir\help\*"
-    if ($LastExitCode -ne 0) { throw }
+    Add-ArchiveContent -SourceDir (Join-Path $ResolvedBuildDir "help")
 }
-
-Pop-Location
