@@ -95,12 +95,17 @@ if ($Sign) {
     $SignFiles = Get-ChildItem *.exe, *.dll -Recurse | Resolve-Path -Relative
 
     # Sign
-    Write-Host "signtool sign /a /n $CertName /t $TimestampServer ..."
-    & signtool sign /a /n $CertName /t $TimestampServer /v $SignFiles
+    Write-Host "signtool sign /a /n $CertName /fd SHA256 /tr $TimestampServer /td SHA256 ..."
+    & signtool sign /a /n $CertName /fd SHA256 /tr $TimestampServer /td SHA256 /v $SignFiles
     if ($LastExitCode -ne 0) { throw }
 
     # Verify
-    Get-ChildItem *.exe, *.dll -Recurse | % { Get-AuthenticodeSignature $_ }
+    Get-ChildItem *.exe, *.dll -Recurse | ForEach-Object {
+        $signature = Get-AuthenticodeSignature $_
+        if ($signature.Status -ne "Valid") {
+            throw "Invalid Authenticode signature for $($_.FullName): $($signature.Status)"
+        }
+    }
 
     # VLC plugin cache
     if (
