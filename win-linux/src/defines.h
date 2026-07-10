@@ -32,21 +32,21 @@
 #define reCmdLang           "--(keep)?lang[:|=](\\w{2,5})"
 
 #define APP_NAME "DesktopEditors"
-#define APP_TITLE "Euro-Office"
+#define APP_TITLE "AUTARQ Office"
 #ifdef __linux
-# define APP_DATA_PATH "/euro-office/desktopeditors"
-# define REG_GROUP_KEY "euro-office"
+# define APP_DATA_PATH "/autarq/office"
+# define REG_GROUP_KEY "autarq"
 # define APP_MUTEX_NAME "asc:editors"
-# define DESKTOP_FILE_NAME "eurooffice-desktopeditors"
+# define DESKTOP_FILE_NAME "autarq-office"
 #else
-# define APP_DATA_PATH "/Euro-Office/DesktopEditors"
-# define APP_REG_NAME  "Euro-Office"
-# define REG_GROUP_KEY "Euro-Office"
-# define REG_UNINST_KEY "Euro-Office Desktop Editors"
+# define APP_DATA_PATH "/AUTARQ/Office"
+# define APP_REG_NAME  "AUTARQ Office"
+# define REG_GROUP_KEY "AUTARQ"
+# define REG_UNINST_KEY "AUTARQ Office"
 # define APP_MUTEX_NAME "TEAMLAB"
 #endif
 
-#define WINDOW_NAME "Euro-Office"
+#define WINDOW_NAME "AUTARQ Office"
 #define WINDOW_TITLE WINDOW_NAME
 #define WINDOW_CLASS_NAME L"DocEditorsWindowClass"
 #define WINDOW_EDITOR_CLASS_NAME L"SingleWindowClass"
@@ -54,12 +54,12 @@
 #define APP_DEFAULT_LOCALE "en-US"
 #define APP_DEFAULT_SYSTEM_LOCALE 1
 #define APP_USER_MODEL_ID "ASC.Documents.5"
-#define APP_SIMPLE_WINDOW_TITLE "Euro-Office Editor"
-#define APP_PROTOCOL "oo-office"
-#define FILE_PREFIX "eurooffice_"
+#define APP_SIMPLE_WINDOW_TITLE "AUTARQ Office"
+#define APP_PROTOCOL "autarq-office"
+#define FILE_PREFIX "autarq_"
 
-#define URL_SITE                "https://github.com/Euro-Office"
-#define URL_SIGNUP              "https://onlyoffice.com/registration.aspx?desktop=true"
+#define URL_SITE                "https://autarq.now/"
+#define URL_SIGNUP              "https://autarq.now/"
 
 #define GET_REGISTRY_USER(variable) \
     QSettings variable(QSettings::NativeFormat, QSettings::UserScope, REG_GROUP_KEY, REG_APP_NAME);
@@ -73,8 +73,8 @@
 #define ACTIONPANEL_ACTIVATE    ACTIONPANEL_CONNECT + 1
 
 #define URL_AGPL "https://www.gnu.org/licenses/agpl-3.0.en.html"
-#define DOWNLOAD_PAGE "https://www.onlyoffice.com/en/download-desktop.aspx"
-#define RELEASE_NOTES "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md"
+#define DOWNLOAD_PAGE "https://github.com/Autarq/DesktopEditors/releases"
+#define RELEASE_NOTES "https://github.com/Autarq/DesktopEditors/blob/autarq-office/CHANGELOG.md"
 
 #ifdef __linux
 typedef unsigned char BYTE;
@@ -103,4 +103,3 @@ typedef unsigned char BYTE;
 #include "defines_p.h"
 
 #endif // DEFINES_H
-

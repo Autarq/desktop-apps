@@ -1,28 +1,13 @@
 <svg width="500" height="250" viewBox="0 0 500 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#a)">
-        <!-- White background -->
-        <path d="M0 0h500v250H0V0Z" fill="#fff"/>
-        <!-- Gray border (kept from original) -->
-        <path d="M499 1v248H1V1h498ZM0 0v250h500V0H0Z" fill="#ACACAC"/>
-
-        <!-- Euro-Office app icon on the left (replaces the three colored shapes) -->
-        <g transform="translate(15, 35) scale(0.1875) translate(0, 960)">
-            <path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z" fill="#5DC0E8"/>
-        </g>
-
-        <!-- Title: "Euro-Office" (bold) + " Desktop Editors" (regular) -->
-        <text x="485" y="135" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#333" text-anchor="end">Desktop Editors</text>
-        <text x="337" y="135" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#333" text-anchor="end">Euro-Office</text>
-
-        <!-- Subtitle -->
-        <text x="485" y="208" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#787878" text-anchor="end">Powered by Ascensio System SIA &amp; Euro-Office 2026</text>
-
-        <!-- URL -->
-        <text x="485" y="232" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#787878" text-anchor="end">https://github.com/Euro-Office</text>
-    </g>
-    <defs>
-        <clipPath id="a">
-            <path fill="#fff" d="M0 0h500v250H0z"/>
-        </clipPath>
-    </defs>
+  <rect x="0.5" y="0.5" width="499" height="249" rx="8" fill="#f9f8f4" stroke="#e9e7e3"/>
+  <rect x="24" y="48" width="132" height="132" rx="18" fill="#123f35"/>
+  <svg x="40" y="69" width="100" height="90" viewBox="513 25 154 125" fill="#c2ff47">
+    <path d="M570.61 106.87c-26.45-.02-36.8-9.74-36.8-27.78s10.24-27.78 36.87-27.78 36.74 9.73 36.74 27.78c0 6.91-1.53 12.59-4.89 16.99 5.83 1.7 12.15 4.3 18.11 8.25 5.04-7.22 7.53-15.87 7.53-25.24 0-25.73-18.43-45.95-57.47-45.95s-57.6 20.23-57.6 45.95 18.16 45.93 57.54 45.95h48.1c-19.01-19-48.1-18.18-48.1-18.18Z"/>
+    <path d="M666.76 125.05h-48.04c19.37 19.37 48.11 18.18 48.11 18.18Z"/>
+  </svg>
+  <text x="188" y="104" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#123f35">AUTARQ</text>
+  <text x="188" y="137" font-family="Arial, Helvetica, sans-serif" font-size="27" fill="#151d1b">Office</text>
+  <text x="188" y="167" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#727775">Documents. Sheets. Presentations. PDF.</text>
+  <text x="24" y="221" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#727775">Based on Euro-Office and ONLYOFFICE</text>
+  <text x="476" y="221" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#123f35" text-anchor="end">autarq.now</text>
 </svg>

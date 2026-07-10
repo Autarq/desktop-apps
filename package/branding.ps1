@@ -1,4 +1,4 @@
-$PackageName = "Euro-Office Desktop Editors"
+$PackageName = "AUTARQ Office"
 $BuildDir = "build"
 $DesktopDir = "DesktopEditors"
 

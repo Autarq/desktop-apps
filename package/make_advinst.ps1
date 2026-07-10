@@ -2,11 +2,11 @@
     [System.Version]$Version = "0.0.0.0",
     [string]$Arch = "x64",
     [string]$Target,
-    [string]$CompanyName = "Euro-Office",
-    [string]$ProductName = "DesktopEditors",
+    [string]$CompanyName = "AUTARQ",
+    [string]$ProductName = "Office",
     [string]$BuildDir,
     [switch]$Sign,
-    [string]$CertName = "Ascensio System SIA",
+    [string]$CertName = "AUTARQ",
     [string]$TimestampServer = "http://timestamp.digicert.com",
     [switch]$Debug
 )

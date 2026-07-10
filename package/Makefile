@@ -1,17 +1,17 @@
 PWD := $(shell pwd)
 
-COMPANY_NAME ?= Euro-Office
-PRODUCT_NAME ?= Desktop Editors
+COMPANY_NAME ?= AUTARQ
+PRODUCT_NAME ?= Office
 PRODUCT_NAME_SHORT ?= $(subst $(empty) $(empty),,$(PRODUCT_NAME))
 
 COMPANY_NAME_LOW = $(shell echo $(COMPANY_NAME) | tr A-Z a-z | tr -s ' ' '-')
 PRODUCT_NAME_LOW = $(shell echo $(PRODUCT_NAME_SHORT) | tr A-Z a-z)
 
-PUBLISHER_NAME ?= Ascensio System SIA
-PUBLISHER_URL ?= http://onlyoffice.com
-SUPPORT_URL ?= http://support.onlyoffice.com
-SUPPORT_MAIL ?= support@onlyoffice.com
-SCHEME_HANDLER ?= oo-office
+PUBLISHER_NAME ?= AUTARQ
+PUBLISHER_URL ?= https://autarq.now/
+SUPPORT_URL ?= https://autarq.now/
+SUPPORT_MAIL ?= hello@autarq.now
+SCHEME_HANDLER ?= autarq-office
 
 PRODUCT_VERSION ?= 0.0.0
 BUILD_NUMBER ?= 0
@@ -65,9 +65,9 @@ DESKTOP_FILES += build/main/usr/share/applications/$(DESKTOPEDITORS_EXEC).deskto
 LINUX_DEPS += $(BIN_FILES)
 LINUX_DEPS += $(DESKTOP_FILES)
 LINUX_DEPS += $(CHANGELOG_RPM)
-LINUX_DEPS += $(patsubst $(BRANDING_DIR)/common/linux/icons-eo/%.png, \
+LINUX_DEPS += $(patsubst $(BRANDING_DIR)/common/linux/icons/%.png, \
 	build/main/usr/share/icons/hicolor/%/apps/$(DESKTOPEDITORS_EXEC).png, \
-	$(wildcard $(BRANDING_DIR)/common/linux/icons-eo/*.png))
+	$(wildcard $(BRANDING_DIR)/common/linux/icons/*.png))
 LINUX_DEPS += build/main/usr/share/licenses/$(PACKAGE_NAME)/LICENSE
 LINUX_DEPS += build/main/usr/share/licenses/$(PACKAGE_NAME)/3DPARTYLICENSE
 
@@ -192,7 +192,7 @@ $(RPM) : build rpm/$(PACKAGE_NAME).spec
 		$(RPM_PARAMS) \
 		$(PACKAGE_NAME).spec
 
-build/main/usr/share/icons/hicolor/%/apps/$(DESKTOPEDITORS_EXEC).png : $(BRANDING_DIR)/common/linux/icons-eo/%.png
+build/main/usr/share/icons/hicolor/%/apps/$(DESKTOPEDITORS_EXEC).png : $(BRANDING_DIR)/common/linux/icons/%.png
 	install -m 644 -D $< $@
 
 build/main/usr/share/licenses/$(PACKAGE_NAME)/LICENSE : $(BRANDING_DIR)/common/license/$(PACKAGE_EDITION)/LICENSE.txt

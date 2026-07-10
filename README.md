@@ -20,6 +20,21 @@ This repository contains the frontend shell for [AUTARQ Office](https://github.c
 
 This repository (`desktop-apps`) contains the frontend shell for the Desktop Editors. The core editing engine and conversion components are located in the main [DesktopEditors](https://github.com/Autarq/DesktopEditors) repository.
 
+## AUTARQ branding
+
+The native application icon source is
+`package/assets/autarq-now-logo.png`. Regenerate the macOS asset catalog,
+Windows ICO resources, Qt runtime PNGs, and Linux icon set with:
+
+```sh
+python3 package/generate_autarq_icons.py
+```
+
+The start page CI overrides live in `common/loginpage/src/css/autarq.less`.
+Windows and Linux product metadata and splash assets live under `win-linux/`
+and `package/`. The editor chrome itself is themed by the `autarq` theme in the
+matching [web-apps](https://github.com/Autarq/web-apps) fork.
+
 ## Building AUTARQ Office for macOS
 
 `desktop-apps` is not built as a standalone macOS product. The reproducible
