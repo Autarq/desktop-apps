@@ -83,7 +83,7 @@ public:
     QVariant tabProperty(int index, const char *name);
     virtual void tabInserted(int index);
 
-signals:
+Q_SIGNALS:
     void currentChanged(int index);
     void onCurrentChangedByWhell(int index);
     void tabBarClicked(int index);

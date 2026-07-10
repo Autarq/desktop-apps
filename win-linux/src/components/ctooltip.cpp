@@ -32,7 +32,9 @@
 #include <QCursor>
 #include <QLineF>
 #ifdef __linux__
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 # include <QX11Info>
+#endif
 #endif
 
 #define FADE_TIMEOUT_MS 5000
@@ -42,7 +44,11 @@
 static bool isCompositingEnabled()
 {
 #ifdef __linux__
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     return QX11Info::isCompositingManagerRunning();
+#else
+    return true;
+#endif
 #else
     return true;
 #endif

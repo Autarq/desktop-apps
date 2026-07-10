@@ -126,7 +126,7 @@ private:
 //    QSize m_tabIconSize;
     CTabBar *m_pBar;
 
-signals:
+Q_SIGNALS:
 //    void sendAddEditor();
     void editorInserted(int, int);
     void editorRemoved(int, int);
@@ -212,7 +212,7 @@ public:
     bool updatePortal(int index, const QString& url = QString());
     int  newPortal(const QString& url, const QString& name);
 
-public slots:
+public Q_SLOTS:
 //    void onDocumentNameChanged(int, QString);
 //    void onDocumentChanged(int, bool);
 };

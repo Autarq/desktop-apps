@@ -39,11 +39,9 @@ protected:
     virtual void OnEvent(NSEditorApi::CAscCefMenuEvent *);
     virtual void OnEvent(QObject *, NSEditorApi::CAscCefMenuEvent *);
 
-signals:
 private:
     QObject * pObjTarget;
 
-public slots:
 };
 
 #endif // CCEFEVENTTRANSFORMER_H

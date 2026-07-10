@@ -30,7 +30,9 @@
 #include <QTimer>
 #include <QPainter>
 #include <QPainterPath>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QX11Info>
+#endif
 #include <xcb/xcb.h>
 
 #ifdef DOCUMENTSCORE_OPENSSL_SUPPORT
@@ -41,16 +43,20 @@
 
 CWindowPlatform::CWindowPlatform(const QRect &rect) :
     CWindowBase(rect),
-    CX11Decoration(this)
+    CPlatformDecoration(this)
 {
     if (AscAppManager::isRtlEnabled())
         setLayoutDirection(Qt::RightToLeft);
     if (isCustomWindowStyle()) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         if (QX11Info::isCompositingManagerRunning())
+#else
+        if (true)
+#endif
             setAttribute(Qt::WA_TranslucentBackground);
-        CX11Decoration::turnOff();
+        CPlatformDecoration::turnOff();
     }
-    setIsCustomWindowStyle(!CX11Decoration::isDecorated());
+    setIsCustomWindowStyle(!CPlatformDecoration::isDecorated());
     setFocusPolicy(Qt::StrongFocus);
     setProperty("stabilized", true);
     m_propertyTimer = new QTimer(this);
@@ -74,7 +80,7 @@ void CWindowPlatform::bringToTop()
         windowState() == (Qt::WindowMinimized | Qt::WindowMaximized) ?
                     showMaximized() : showNormal();
     }
-    CX11Decoration::raiseWindow();
+    CPlatformDecoration::raiseWindow();
 }
 
 void CWindowPlatform::show(bool maximized)
@@ -88,7 +94,7 @@ void CWindowPlatform::show(bool maximized)
 void CWindowPlatform::setWindowColors(const QColor& background, const QColor& border, bool isActive)
 {
     Q_UNUSED(border)
-    if (!CX11Decoration::isDecorated()) {
+    if (!CPlatformDecoration::isDecorated()) {
         m_brdColor = border;
         setStyleSheet(QString("QMainWindow{border:1px solid %1; background-color: %2;}").arg(border.name(), background.name()));
     }
@@ -96,7 +102,7 @@ void CWindowPlatform::setWindowColors(const QColor& background, const QColor& bo
 
 void CWindowPlatform::adjustGeometry()
 {
-    int border = (CX11Decoration::isDecorated() || isMaximized()) ? 0 : qRound(CX11Decoration::customWindowBorderWith() * m_dpiRatio);
+    int border = (CPlatformDecoration::isDecorated() || isMaximized()) ? 0 : qRound(CPlatformDecoration::customWindowBorderWith() * m_dpiRatio);
     setContentsMargins(border, border, border, border);
 }
 
@@ -112,13 +118,13 @@ void CWindowPlatform::onWindowActivate(bool is_active)
 
 void CWindowPlatform::onMinimizeEvent()
 {
-    CX11Decoration::setMinimized();
+    CPlatformDecoration::setMinimized();
 }
 
 bool CWindowPlatform::event(QEvent * event)
 {
     if (event->type() == QEvent::WindowStateChange) {
-        CX11Decoration::setMaximized(isMaximized());
+        CPlatformDecoration::setMaximized(isMaximized());
         applyWindowState();
         adjustGeometry();
     } else
@@ -142,7 +148,11 @@ bool CWindowPlatform::event(QEvent * event)
     return CWindowBase::event(event);
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+bool CWindowPlatform::nativeEvent(const QByteArray &ev_type, void *msg, qintptr *res)
+#else
 bool CWindowPlatform::nativeEvent(const QByteArray &ev_type, void *msg, long *res)
+#endif
 {
     if (ev_type == "xcb_generic_event_t") {
         xcb_generic_event_t *ev = static_cast<xcb_generic_event_t*>(msg);
@@ -165,13 +175,17 @@ bool CWindowPlatform::nativeEvent(const QByteArray &ev_type, void *msg, long *re
 
 void CWindowPlatform::setScreenScalingFactor(double factor, bool resize)
 {
-    CX11Decoration::onDpiChanged(factor);
+    CPlatformDecoration::onDpiChanged(factor);
     CWindowBase::setScreenScalingFactor(factor, resize);
 }
 
 void CWindowPlatform::paintEvent(QPaintEvent *event)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (!QX11Info::isCompositingManagerRunning()) {
+#else
+    if (false) {
+#endif
         CWindowBase::paintEvent(event);
         return;
     }
@@ -198,17 +212,17 @@ void CWindowPlatform::paintEvent(QPaintEvent *event)
 void CWindowPlatform::mouseMoveEvent(QMouseEvent *e)
 {
     if (!property("blocked").toBool())
-        CX11Decoration::dispatchMouseMove(e);
+        CPlatformDecoration::dispatchMouseMove(e);
 }
 
 void CWindowPlatform::mousePressEvent(QMouseEvent *e)
 {
-    CX11Decoration::dispatchMouseDown(e);
+    CPlatformDecoration::dispatchMouseDown(e);
 }
 
 void CWindowPlatform::mouseReleaseEvent(QMouseEvent *e)
 {
-    CX11Decoration::dispatchMouseUp(e);
+    CPlatformDecoration::dispatchMouseUp(e);
 }
 
 void CWindowPlatform::mouseDoubleClickEvent(QMouseEvent *me)

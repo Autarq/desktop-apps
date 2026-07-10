@@ -83,7 +83,7 @@ public:
     std::pair<QString, QString> theme_icons;
     QString tab_theme_type;
     bool is_active = false;
-signals:
+Q_SIGNALS:
     void onTabWidthChanged(int width);
 
 protected:

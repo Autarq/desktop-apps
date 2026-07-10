@@ -39,7 +39,7 @@ public:
     CMainWindowImpl(const QRect &rect);
     void doOpenLocalFile(COpenOptions&);
 
-public slots:
+public Q_SLOTS:
     void onLocalOptions(const QString&);
     void onLocalFileSaveAs(void *);
 

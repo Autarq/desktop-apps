@@ -25,7 +25,7 @@ void CLogger::write(const QString &value)
         text = QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss ") + text;
 
     QTextStream out(m_file);
-#ifdef QT_VERSION_6
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     out.setEncoding(QStringConverter::Utf8);
 #else
     out.setCodec("UTF-8");

@@ -97,7 +97,7 @@ private:
     friend class CEditorWindowPrivate;
     std::unique_ptr<CEditorWindowPrivate> d_ptr;
 
-private slots:
+private Q_SLOTS:
     void onClickButtonHome();
 };
 

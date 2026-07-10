@@ -24,7 +24,7 @@ public:
 
     static QJsonObject availableLangsToJson();
 
-signals:
+Q_SIGNALS:
     void onLangChanged(const QString&);
 
 private:

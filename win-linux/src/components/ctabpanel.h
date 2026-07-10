@@ -66,10 +66,10 @@ private:
     bool m_isReady = false;
     bool m_isReporterOn = false;
 
-signals:
+Q_SIGNALS:
     void closePanel(QCloseEvent *event);
 
-public slots:
+public Q_SLOTS:
     void showFullScreen();
     void showNormal();
 };

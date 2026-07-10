@@ -44,9 +44,9 @@
 #include "cascapplicationmanagerwrapper.h"
 #include "qdpichecker.h"
 #include "common/File.h"
-//#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 # include <QDesktopWidget>
-//#endif
+#endif
 
 #ifdef _WIN32
 # include <QDesktopServices>
@@ -56,9 +56,11 @@
 #include "shlobj.h"
 #include "lmcons.h"
 #else
-# include "platform_linux/xcbutils.h"
+#include "platform_linux/linux_window_utils.h"
 # include <QEventLoop>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 # include <QX11Info>
+#endif
 #include <sys/stat.h>
 #include <stdlib.h>
 #endif
@@ -331,18 +333,21 @@ QRect Utils::getScreenGeometry(const QPoint& leftTop)
         return dx + dy;
     };
 
-    int closestScreen = 0;
-    int shortestDistance = pointToRect(leftTop, QApplication::desktop()->screenGeometry(0));
+    QList<QScreen*> screens = QApplication::screens();
+    if (screens.isEmpty()) return QRect();
 
-    for (int i = 0; ++i < QApplication::desktop()->screenCount(); ) {
-        int thisDistance = pointToRect(leftTop, QApplication::desktop()->screenGeometry(i));
+    int closestScreen = 0;
+    int shortestDistance = pointToRect(leftTop, screens.at(0)->geometry());
+
+    for (int i = 0; ++i < screens.count(); ) {
+        int thisDistance = pointToRect(leftTop, screens.at(i)->geometry());
         if (thisDistance < shortestDistance) {
             shortestDistance = thisDistance;
             closestScreen = i;
         }
     }
 
-    return QApplication::desktop()->screenGeometry(closestScreen);
+    return screens.at(closestScreen)->geometry();
 #else
     POINT lt{leftTop.x(), leftTop.y()};
     MONITORINFO mi{sizeof(MONITORINFO)};
@@ -945,7 +950,7 @@ namespace WindowHelper {
 
         wb->setEnabled(enabled);
         WId wnd = wb->mainPanel()->winId();
-        XcbUtils::setInputEnabled(wnd, enabled);
+        LinuxWindowUtils::setInputEnabled(wnd, enabled);
     }
 
     // Linux Environment Info

@@ -287,7 +287,7 @@ void CEditorWindow::init(CTabPanel *panel)
     setCentralWidget(m_pMainPanel);
 #ifdef __linux__
     if (isCustomWindowStyle()) {
-        CX11Decoration::setTitleWidget(m_boxTitleBtns);
+        CPlatformDecoration::setTitleWidget(m_boxTitleBtns);
         m_pMainPanel->setMouseTracking(true);
         setMouseTracking(true);
     }
@@ -422,15 +422,15 @@ void CEditorWindow::captureMouse()
     QPoint cursor = QCursor::pos();
     int x = cursor.x();
     x -= AscAppManager::isRtlEnabled() ? width() - CAPTURED_WINDOW_OFFSET_X : CAPTURED_WINDOW_OFFSET_X;
-    QMouseEvent _event(QEvent::MouseButtonRelease, cursor, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
-    QApplication::sendEvent(AscAppManager::mainWindow(), &_event);
+    QMouseEvent _eventRelease(QEvent::MouseButtonRelease, cursor, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QApplication::sendEvent(AscAppManager::mainWindow(), &_eventRelease);
     setGeometry(QRect(QPoint(x, cursor.y() - CAPTURED_WINDOW_OFFSET_Y), size()));
     Q_ASSERT(m_boxTitleBtns != nullptr);
     QPoint pt_in_title = (m_boxTitleBtns->geometry().topLeft() + QPoint(CAPTURED_WINDOW_OFFSET_X, CAPTURED_WINDOW_OFFSET_Y));
-    _event = {QEvent::MouseButtonPress, pt_in_title, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier};
-    CX11Decoration::dispatchMouseDown(&_event);
-    _event = {QEvent::MouseMove, cursor, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier};
-    CX11Decoration::dispatchMouseMove(&_event);
+    QMouseEvent _eventPress(QEvent::MouseButtonPress, pt_in_title, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    CPlatformDecoration::dispatchMouseDown(&_eventPress);
+    QMouseEvent _eventMove(QEvent::MouseMove, cursor, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    CPlatformDecoration::dispatchMouseMove(&_eventMove);
 #endif
 }
 

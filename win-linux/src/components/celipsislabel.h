@@ -41,7 +41,7 @@ public:
     auto updateText() -> void;
     auto textWidth() -> int;
 
-signals:
+Q_SIGNALS:
     void onResize(QSize size, int textWidth);
 
 protected:

@@ -44,7 +44,7 @@ CTabStyle::~CTabStyle()
 void CTabStyle::drawControl(ControlElement element, const QStyleOption *opt, QPainter *p, const QWidget *widget) const {
     if (element == CE_TabBarTabLabel) {
         if (const QStyleOptionTab *tab = qstyleoption_cast<const QStyleOptionTab *>(opt)) {
-            QStyleOptionTabV3 tabV2(*tab);
+            QStyleOptionTab tabV2(*tab);
             QRect tr = tabV2.rect;
             bool verticalTabs = tabV2.shape == QTabBar::RoundedEast
                                 || tabV2.shape == QTabBar::RoundedWest
@@ -130,7 +130,7 @@ QRect CTabStyle::subElementRect(SubElement element, const QStyleOption *option, 
     return QProxyStyle::subElementRect(element, option, widget);
 }
 
-void CTabStyle::tabLayout(const QStyleOptionTabV3 *opt, const QWidget *widget, QRect *textRect, QRect *iconRect) const
+void CTabStyle::tabLayout(const QStyleOptionTab *opt, const QWidget *widget, QRect *textRect, QRect *iconRect) const
 {
     Q_ASSERT(textRect);
     Q_ASSERT(iconRect);

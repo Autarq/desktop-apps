@@ -23,14 +23,14 @@
  *
  */
 
-#ifndef XCBUTILS_H
-#define XCBUTILS_H
+#ifndef LINUX_WINDOW_UTILS_H
+#define LINUX_WINDOW_UTILS_H
 
 #include <xcb/xcb.h>
 #include <vector>
 
 
-namespace XcbUtils
+namespace LinuxWindowUtils
 {
 void moveWindow(xcb_window_t window, int x, int y);
 void setNativeFocusTo(xcb_window_t window);
@@ -42,4 +42,4 @@ void getWindowStack(std::vector<xcb_window_t> &winStack);
 void setInputEnabled(xcb_window_t window, bool enabled);
 }
 
-#endif // XCBUTILS_H
+#endif // LINUX_WINDOW_UTILS_H

@@ -18,8 +18,8 @@ protected:
 
     CAscApplicationManagerWrapper_Private * app_private = nullptr;
 
-signals:
-public slots:
+Q_SIGNALS:
+public Q_SLOTS:
 };
 
 #endif // CAPPEVENTFILTER_H

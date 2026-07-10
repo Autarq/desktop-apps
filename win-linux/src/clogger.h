@@ -23,9 +23,9 @@ private:
     QFile * m_file = nullptr;
     bool m_showDate = true;
 
-signals:
+Q_SIGNALS:
 
-public slots:
+public Q_SLOTS:
     void write(const QString &value);
 };
 

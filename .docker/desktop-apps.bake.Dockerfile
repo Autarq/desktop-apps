@@ -9,12 +9,16 @@
 # - core-fonts: files from this repo
 # ==============================================================================
 
-ARG PRODUCT_VERSION
-ARG CACHE_BUST
-ARG BUILD_ROOT
-
 #### DESKTOP-APPS
-FROM core-base AS desktop-builder
+FROM core-base AS desktop-linux
+
+    ARG PRODUCT_VERSION
+    ARG BUILD_NUMBER
+    ARG CACHE_BUST=3
+    ARG BUILD_ROOT
+    ARG COMPANY_NAME
+    ARG PRODUCT_NAME
+    ARG BRANDING_DIR
 
     RUN apt-get -y update && \
         apt-get -y upgrade && \ 
@@ -23,6 +27,7 @@ FROM core-base AS desktop-builder
                     libatk1.0-dev \
                     libxkbcommon-x11-dev \
                     python3-venv \
+                    python3-pip \
                     bison \
                     libnotify-dev \
                     libcups2-dev \
@@ -54,31 +59,71 @@ FROM core-base AS desktop-builder
                     libgl1-mesa-dev \
                     libegl1-mesa-dev \
                     libasound2-dev \
-                    libpulse-dev
+                    libpulse-dev \
+                    libnss3-dev \
+                    libnspr4-dev && \
+        python3 -m venv /opt/venv && \
+        /opt/venv/bin/pip install --no-cache-dir aqtinstall
+
+    ENV PATH="/opt/venv/bin:$PATH"
 
     COPY desktop-sdk /desktop-sdk
     COPY desktop-apps /desktop-apps
     COPY core-fonts /core-fonts
 
-    COPY --from=desktop-js /app/loginpage/deploy /desktop-apps/common/loginpage/deploy
+    ### Branding
+    COPY ${BRANDING_DIR}/desktop-apps /desktop-apps
+    ###
+
+    COPY --from=desktop-common /index.html /desktop-apps/common/loginpage/deploy/index.html
+    COPY --from=desktop-common /editors/webext/noconnect.html /desktop-apps/common/loginpage/deploy/noconnect.html
     #COPY gcc_64 /qt5
 
-    ARG CACHE_BUST=1
-
-    ARG PRODUCT_VERSION
-
     ENV PRODUCT_VERSION=${PRODUCT_VERSION}
+    ENV BUILD_NUMBER=${BUILD_NUMBER}
+    
+    ENV ABOUT_PAGE_APP_NAME="${COMPANY_NAME} ${PRODUCT_NAME}"
 
     RUN --mount=type=cache,target=/build-cache-desktop,id=build-cache-desktop-${CACHE_BUST} \
         --mount=type=cache,target=/nuget-cache,id=nuget-cache-${CACHE_BUST} \
+        --mount=type=cache,target=/ccache,id=ccache \
+        --mount=type=secret,id=nextcloud_user \
+        --mount=type=secret,id=nextcloud_pass \
+        export NEXTCLOUD_USER="$(cat /run/secrets/nextcloud_user)" && \
+        export NEXTCLOUD_PASS="$(cat /run/secrets/nextcloud_pass)" && \
+        export CCACHE_DIR=/ccache && \
         cd /build-cache-desktop && \
-        cmake -GNinja -DVCPKG_TARGET_TRIPLET=x64-linux-dynamic \
-              -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake \
-              -DVCPKG_MANIFEST_MODE=ON \
-              -DVCPKG_MANIFEST_DIR="/core" \
-              -DVCPKG_MANIFEST_FEATURES="desktop-editors" \
-              /desktop-apps/win-linux/ && \
+        cmake -GNinja \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+            -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake \
+            -DVCPKG_MANIFEST_MODE=ON \
+            -DVCPKG_MANIFEST_DIR="/core" \
+            -DVCPKG_MANIFEST_FEATURES="desktop-editors" \
+            -DABOUT_PAGE_APP_NAME="${ABOUT_PAGE_APP_NAME}" \
+            /desktop-apps/win-linux/ && \
         cmake --build . && \
         cmake --install . && \
+        ccache --show-stats && \
         cp -a desktopeditors /desktopeditors
 
+    COPY --from=desktop-common / /desktopeditors/
+
+    RUN /desktopeditors/converter/allfontsgen \
+        --use-system=1 \
+        --input=/desktopeditors/fonts \
+        --input=/core-fonts \
+        --allfonts=/desktopeditors/converter/AllFonts.js \
+        --selection=/desktopeditors/converter/font_selection.bin 
+    
+    RUN /desktopeditors/converter/allthemesgen \
+        --converter-dir=/desktopeditors/converter \
+        --src=/desktopeditors/editors/sdkjs/slide/themes \
+        --allfonts=/desktopeditors/converter/AllFonts.js \
+        --output=/desktopeditors/editors/sdkjs/common/Images
+
+    RUN rm /desktopeditors/converter/allthemesgen && \
+        rm /desktopeditors/converter/allfontsgen
+
+    RUN echo 'LD_LIBRARY_PATH=$PWD:$PWD/converter:$LD_LIBRARY_PATH LD_PRELOAD=libcef.so ./DesktopEditors' > /desktopeditors/start_desktop.sh && \
+        chmod +x /desktopeditors/start_desktop.sh

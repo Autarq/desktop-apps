@@ -197,7 +197,7 @@ ADD_DEPENDENCY(PdfFile, DjVuFile, XpsFile, UnicodeConverter, hunspell, ooxmlsign
 include($$CORE_ROOT_DIR/../desktop-sdk/ChromiumBasedEditors/videoplayerlib/videoplayerlib_deps.pri)
 
 core_linux {
-    QT += network x11extras dbus
+    QT += network dbus
 
     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
     QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN/converter\'"
@@ -205,7 +205,7 @@ core_linux {
 
     INCLUDEPATH += $$PWD/extras/update-daemon/src/classes
 
-    HEADERS +=  $$PWD/src/windows/platform_linux/cx11decoration.h \
+    HEADERS +=  $$PWD/src/windows/platform_linux/cplatformdecoration.h \
                 #$$PWD/src/windows/platform_linux/gtk_addon.h \
                 $$PWD/src/windows/platform_linux/cwindowplatform.h \
                 $$PWD/src/components/cnotification.h \
@@ -216,10 +216,10 @@ core_linux {
                 $$PWD/src/platform_linux/gtkfilechooser.h \
                 $$PWD/src/platform_linux/gtkprintdialog.h \
                 $$PWD/src/platform_linux/gtkutils.h \
-                $$PWD/src/platform_linux/xcbutils.h \
+                $$PWD/src/platform_linux/linux_window_utils.h \
                 $$PWD/extras/update-daemon/src/classes/csocket.h
 
-    SOURCES +=  $$PWD/src/windows/platform_linux/cx11decoration.cpp \
+    SOURCES +=  $$PWD/src/windows/platform_linux/cplatformdecoration.cpp \
                 $$PWD/src/windows/platform_linux/cwindowplatform.cpp \
                 $$PWD/src/components/cnotification.cpp \
                 $$PWD/src/platform_linux/cdialogopenssl.cpp \
@@ -229,7 +229,7 @@ core_linux {
                 $$PWD/src/platform_linux/gtkfilechooser.cpp \
                 $$PWD/src/platform_linux/gtkprintdialog.cpp \
                 $$PWD/src/platform_linux/gtkutils.cpp \
-                $$PWD/src/platform_linux/xcbutils.cpp \
+                $$PWD/src/platform_linux/linux_window_utils.cpp \
                 $$PWD/extras/update-daemon/src/classes/csocket.cpp
 
     CONFIG += link_pkgconfig

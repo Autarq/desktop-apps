@@ -92,11 +92,11 @@ public:
 
 //    void signal(edEventType);
     void signal(CInAppEventBase *);
-signals:
+Q_SIGNALS:
     void onModalDialog(bool status, NativeHandle handle);
     void onEditorClosed();
 
-public slots:
+public Q_SLOTS:
 };
 
 class CRunningEventHelper

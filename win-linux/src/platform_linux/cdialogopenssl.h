@@ -21,7 +21,7 @@ private:
 protected:
     CSslDialog_Private * m_private;
 
-private slots:
+private Q_SLOTS:
     void onBtnCertificateClick();
     void onBtnKeyClick();
 };

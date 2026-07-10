@@ -14,7 +14,7 @@ public:
 
     static bool isLocalFile(const QString& path);
 
-signals:
+Q_SIGNALS:
     void examined(const QString&, int, int);
 
 private:
@@ -35,10 +35,10 @@ public:
     static void check(const QString& json);
     static bool isFileRemote(const QString& path);
 
-public slots:
+public Q_SLOTS:
     void handleResults(const QString&, int, int);
 
-signals:
+Q_SIGNALS:
     void operate(const QString&);
     void checked(const QString&, int, bool);
 

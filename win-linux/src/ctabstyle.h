@@ -43,7 +43,7 @@ public:
     QRect subElementRect(SubElement element, const QStyleOption *option, const QWidget *widget) const;
 
 private:
-    void tabLayout(const QStyleOptionTabV3 *opt, const QWidget *widget, QRect *textRect, QRect *iconRect) const;
+    void tabLayout(const QStyleOptionTab *opt, const QWidget *widget, QRect *textRect, QRect *iconRect) const;
 };
 
 #endif // CTABSTYLE_H

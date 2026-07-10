@@ -106,7 +106,7 @@ class CUpdateManager::DialogSchedule : public QObject
     Q_OBJECT
 public:
     DialogSchedule(QObject *owner);
-public slots:
+public Q_SLOTS:
     void addToSchedule(const QString &method, const QString &text = QString());
 
 private:

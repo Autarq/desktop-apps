@@ -67,7 +67,7 @@ public:
     void cancelClose();
     QSize contentSize();
 
-signals:
+Q_SIGNALS:
     void aboutToClose();
 
 private:
@@ -111,7 +111,7 @@ protected:
     void closeEvent(QCloseEvent *) override;
     void showEvent(QShowEvent *) override;
 
-public slots:
+public Q_SLOTS:
     void pushButtonMainClicked();
     void onTabClicked(int);
     void onTabChanged(int);
@@ -168,7 +168,7 @@ private:
     bool m_isStartPageReady = false;
     std::wstring m_keepedAction;
 
-private slots:
+private Q_SLOTS:
     virtual void onCloseEvent() final;
 };
 

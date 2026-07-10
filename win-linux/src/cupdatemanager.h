@@ -90,7 +90,7 @@ public:
     void launchIntervalStartTimer();
     void setServiceLang(QString lang = QString());
 
-public slots:
+public Q_SLOTS:
     void checkUpdates(bool manualCheck = false);
 
 private:
@@ -127,7 +127,7 @@ private:
 
     CSocket *m_socket = nullptr;
 
-private slots:
+private Q_SLOTS:
     void onCheckFinished(bool error, bool updateExist, const QString &version, const QString &changelog);
     void onLoadCheckFinished(const QString &json);
     void showUpdateMessage(QWidget *parent, bool forceModal = false, int result = DLG_RESULT_NONE);

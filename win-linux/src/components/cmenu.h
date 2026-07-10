@@ -58,7 +58,7 @@ public:
     void setSectionEnabled(Action action, bool enabled);
     void exec(const QPoint &pos);
 
-signals:
+Q_SIGNALS:
     void wasHidden();
 
 private:

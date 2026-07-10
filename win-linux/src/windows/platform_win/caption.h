@@ -91,7 +91,7 @@ private:
         if (!buttonAtPos(pos)) {
             ::ReleaseCapture();
             ::PostMessage(hwnd_root, cmd, isResizingAvailable() && isPointInResizeArea(pos.y()) ? HTTOP : HTCAPTION, POINTTOPOINTS(pt));
-#ifndef QT_VERSION_6
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
             // TODO: crash on mouse down
             QCoreApplication::postEvent(parent(), new QEvent(QEvent::MouseButtonPress));
 #endif

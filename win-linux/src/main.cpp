@@ -65,12 +65,16 @@ int main( int argc, char *argv[] )
         return 0;
     }
 #endif
-#ifdef QT_VERSION_6
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     qputenv("QT_ENABLE_HIGHDPI_SCALING", "0");
 #else
     QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
 #endif
     QCoreApplication::setAttribute(Qt::AA_Use96Dpi);
+#ifdef _WIN32
+    QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);   // avoid Qt's ANGLE colliding with CEF's libEGL/libGLESv2
+#endif
+
     QCoreApplication::setApplicationName(QString::fromUtf8(WINDOW_NAME));
     QApplication::setApplicationDisplayName(QString::fromUtf8(WINDOW_NAME));
 
@@ -155,7 +159,9 @@ int main( int argc, char *argv[] )
         return 0;
     }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
     app.setStyle(QStyleFactory::create("Fusion"));
 
     /* the order is important */

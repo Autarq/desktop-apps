@@ -42,7 +42,7 @@ CPresenterWindow::CPresenterWindow(const QRect &rect, const QString &title, QCef
     setCentralWidget(m_pMainPanel);
 #ifdef __linux__
     if (isCustomWindowStyle()) {
-        CX11Decoration::setTitleWidget(m_boxTitleBtns);
+        CPlatformDecoration::setTitleWidget(m_boxTitleBtns);
         m_pMainPanel->setMouseTracking(true);
         setMouseTracking(true);
     }
@@ -128,7 +128,7 @@ QWidget * CPresenterWindow::createMainPanel(QWidget * parent, const QString& tit
     if (isCustomWindowStyle()) {
 #ifdef __linux__
         m_labelTitle->setMouseTracking(true);
-        //mainGridLayout->setMargin(CX11Decoration::customWindowBorderWith() * m_dpiRatio);
+        //mainGridLayout->setMargin(CPlatformDecoration::customWindowBorderWith() * m_dpiRatio);
         /*QPalette _palette(palette());
         _palette.setColor(QPalette::Background, QColor("#f1f1f1"));
         setAutoFillBackground(true);

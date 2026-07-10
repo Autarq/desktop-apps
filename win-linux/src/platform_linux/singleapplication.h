@@ -45,10 +45,10 @@ public:
     bool isPrimary();
     bool sendMessage(const QByteArray&);
 
-signals:
+Q_SIGNALS:
     void receivedMessage(QByteArray message);
 
-private slots:
+private Q_SLOTS:
     void invokeSignal(const QString&);
 
 private:

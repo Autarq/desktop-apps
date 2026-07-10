@@ -79,7 +79,7 @@ public:
     class DialogSchedule;
     DialogSchedule *m_pDialogSchedule;
 
-public slots:
+public Q_SLOTS:
     void showAssociationMessage(QWidget *parent, const std::vector<std::wstring> &unassocFileExts, bool forceModal = false, int result = DLG_RESULT_NONE);
 };
 

@@ -45,7 +45,7 @@ public:
 protected:
     CTabPanel * m_panel = nullptr;
 
-public slots:
+public Q_SLOTS:
     virtual void onPortalLogout(std::wstring portal) = 0;
     virtual void onEditorConfig(int id, std::wstring cfg) = 0;
     virtual void onEditorActionRequest(int, const QString&) = 0;

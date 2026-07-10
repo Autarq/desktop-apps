@@ -23,9 +23,11 @@
  *
  */
 
-#include "xcbutils.h"
+#include "linux_window_utils.h"
 #include <QtConcurrent/QtConcurrent>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QX11Info>
+#endif
 #include <thread>
 #include <stdlib.h>
 #include <X11/Xlib.h>
@@ -35,8 +37,9 @@
 #include <X11/extensions/shape.h>
 
 
-void XcbUtils::moveWindow(xcb_window_t window, int x, int y)
+void LinuxWindowUtils::moveWindow(xcb_window_t window, int x, int y)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     xcb_connection_t *conn = QX11Info::connection();
     if (conn && window != XCB_WINDOW_NONE) {
         uint32_t val[2];
@@ -45,11 +48,26 @@ void XcbUtils::moveWindow(xcb_window_t window, int x, int y)
         xcb_configure_window(conn, window, XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y, val);
         xcb_flush(conn);
     }
+#else
+    Display *disp = XOpenDisplay(NULL);
+    if (disp) {
+        xcb_connection_t *conn = XGetXCBConnection(disp);
+        if (conn && window != XCB_WINDOW_NONE) {
+            uint32_t val[2];
+            val[0] = x;
+            val[1] = y;
+            xcb_configure_window(conn, window, XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y, val);
+            xcb_flush(conn);
+        }
+        XCloseDisplay(disp);
+    }
+#endif
 }
 
-bool XcbUtils::isNativeFocus(xcb_window_t window)
+bool LinuxWindowUtils::isNativeFocus(xcb_window_t window)
 {
     xcb_window_t win = 0;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     xcb_connection_t *conn = QX11Info::connection();
     if (conn) {
         xcb_get_input_focus_cookie_t cookie;
@@ -62,11 +80,30 @@ bool XcbUtils::isNativeFocus(xcb_window_t window)
         }
         xcb_flush(conn);
     }
+#else
+    Display *disp = XOpenDisplay(NULL);
+    if (disp) {
+        xcb_connection_t *conn = XGetXCBConnection(disp);
+        if (conn) {
+            xcb_get_input_focus_cookie_t cookie;
+            xcb_get_input_focus_reply_t *reply;
+            cookie = xcb_get_input_focus(conn);
+            reply = xcb_get_input_focus_reply(conn, cookie, NULL);
+            if (reply) {
+                win = reply->focus;
+                free(reply);
+            }
+            xcb_flush(conn);
+        }
+        XCloseDisplay(disp);
+    }
+#endif
     return window == win;
 }
 
-void XcbUtils::setNativeFocusTo(xcb_window_t window)
+void LinuxWindowUtils::setNativeFocusTo(xcb_window_t window)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     xcb_connection_t *conn = QX11Info::connection();
     if (conn && window != XCB_WINDOW_NONE) {
         xcb_void_cookie_t cookie;
@@ -74,6 +111,19 @@ void XcbUtils::setNativeFocusTo(xcb_window_t window)
                                      window, XCB_CURRENT_TIME);
         xcb_flush(conn);
     }
+#else
+    Display *disp = XOpenDisplay(NULL);
+    if (disp) {
+        xcb_connection_t *conn = XGetXCBConnection(disp);
+        if (conn && window != XCB_WINDOW_NONE) {
+            xcb_void_cookie_t cookie;
+            cookie = xcb_set_input_focus(conn, XCB_INPUT_FOCUS_PARENT,
+                                         window, XCB_CURRENT_TIME);
+            xcb_flush(conn);
+        }
+        XCloseDisplay(disp);
+    }
+#endif
 }
 
 static void SetSkipTaskbar(Display* disp, Window win)
@@ -126,7 +176,7 @@ static bool IsVisible(Display *disp, Window wnd)
     return false;
 }
 
-void XcbUtils::findWindowAsync(const char *window_name, void *user_data,
+void LinuxWindowUtils::findWindowAsync(const char *window_name, void *user_data,
                                uint timeout_ms,
                                void(*callback)(xcb_window_t, void*))
 {
@@ -165,7 +215,7 @@ void XcbUtils::findWindowAsync(const char *window_name, void *user_data,
     });
 }
 
-void XcbUtils::getWindowStack(std::vector<xcb_window_t> &winStack)
+void LinuxWindowUtils::getWindowStack(std::vector<xcb_window_t> &winStack)
 {
     Display *disp = XOpenDisplay(NULL);
     if (!disp)
@@ -180,8 +230,9 @@ void XcbUtils::getWindowStack(std::vector<xcb_window_t> &winStack)
     }
 }
 
-void XcbUtils::setInputEnabled(xcb_window_t window, bool enabled)
+void LinuxWindowUtils::setInputEnabled(xcb_window_t window, bool enabled)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     Display* disp = QX11Info::display();
     Window wnd = window;
     if (enabled) {
@@ -191,4 +242,18 @@ void XcbUtils::setInputEnabled(xcb_window_t window, bool enabled)
         XShapeCombineRectangles(disp, wnd, ShapeInput, 0, 0, &rc, 1, ShapeSet, YXBanded);
     }
     XFlush(disp);
+#else
+    Display* disp = XOpenDisplay(NULL);
+    if (disp) {
+        Window wnd = window;
+        if (enabled) {
+            XShapeCombineMask(disp, wnd, ShapeInput, 0, 0, None, ShapeSet);
+        } else {
+            XRectangle rc = {0, 0, 0, 0};
+            XShapeCombineRectangles(disp, wnd, ShapeInput, 0, 0, &rc, 1, ShapeSet, YXBanded);
+        }
+        XFlush(disp);
+        XCloseDisplay(disp);
+    }
+#endif
 }

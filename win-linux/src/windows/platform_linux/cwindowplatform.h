@@ -27,10 +27,10 @@
 #define CWINDOWPLATFORM_H
 
 #include "windows/cwindowbase.h"
-#include "cx11decoration.h"
+#include "cplatformdecoration.h"
 
 
-class CWindowPlatform : public CWindowBase, public CX11Decoration
+class CWindowPlatform : public CWindowBase, public CPlatformDecoration
 {
 public:
     explicit CWindowPlatform(const QRect&);
@@ -45,7 +45,11 @@ protected:
     void onWindowActivate(bool is_active);
     virtual void onMinimizeEvent() override;
     virtual bool event(QEvent *event) override;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    virtual bool nativeEvent(const QByteArray&, void*, qintptr*) final;
+#else
     virtual bool nativeEvent(const QByteArray&, void*, long*) final;
+#endif
     virtual void setScreenScalingFactor(double, bool resize = true) override;
     virtual void paintEvent(QPaintEvent *event) override;
     virtual void onLayoutDirectionChanged() = 0;

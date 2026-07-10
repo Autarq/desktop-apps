@@ -41,7 +41,7 @@ public:
     bool isPrimary() const;
     bool sendMessage(const QByteArray &message);
 
-signals:
+Q_SIGNALS:
     void receivedMessage(QByteArray message);
 
 private:
@@ -52,7 +52,7 @@ private:
     HWND        m_hWnd = nullptr;
     bool        m_isPrimary;
 
-private slots:
+private Q_SLOTS:
     void invokeSignal(const QString&);
 };
 

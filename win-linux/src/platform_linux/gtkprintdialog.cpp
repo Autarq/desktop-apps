@@ -13,7 +13,7 @@
 #define PDF_PRINTER_NAME "Print to File"
 #define LPR_PRINTER_NAME "Print to LPR"
 
-typedef QPagedPaintDevice::PageSize PageSize;
+
 typedef QPrinter::Unit QUnit;
 typedef uint16_t WORD;
 
@@ -187,7 +187,7 @@ QDialog::DialogCode GtkPrintDialog::exec()
 
     auto qt_printer_name = m_printer->printerName();
     auto qt_resolution = m_printer->resolution();
-    auto qt_orient = m_printer->orientation();
+    auto qt_orient = m_printer->pageLayout().orientation();
     auto qt_duplex = m_printer->duplex();
     auto qt_color_mode = m_printer->colorMode();
     auto qt_copy_count = m_printer->copyCount();
@@ -313,7 +313,15 @@ QDialog::DialogCode GtkPrintDialog::exec()
         GtkUnit unit = GtkUnit::GTK_UNIT_MM;
         QUnit qt_unit(QUnit::Millimeter);
         double left_in, top_in, right_in, bottom_in;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        QMarginsF margins = m_printer->pageLayout().margins(QPageLayout::Millimeter);
+        left_in = margins.left();
+        top_in = margins.top();
+        right_in = margins.right();
+        bottom_in = margins.bottom();
+#else
         m_printer->getPageMargins(&left_in, &top_in, &right_in, &bottom_in, qt_unit);
+#endif
         gtk_page_setup_set_left_margin(page_setup, left_in, unit);
         gtk_page_setup_set_top_margin(page_setup, top_in, unit);
         gtk_page_setup_set_right_margin(page_setup, right_in, unit);
@@ -466,7 +474,11 @@ QDialog::DialogCode GtkPrintDialog::exec()
                         QPrinter::LastPageFirst : QPrinter::FirstPageFirst);
 
             int n_copies = gtk_print_settings_get_n_copies(settings);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_printer->setCopyCount(n_copies);
+#else
             m_printer->setNumCopies(n_copies);
+#endif
 
             const char* output_uri = gtk_print_settings_get(settings, GTK_PRINT_SETTINGS_OUTPUT_URI);
             auto path = QUrl::fromPercentEncoding(QByteArray(output_uri)).replace("file://", "");
@@ -487,15 +499,23 @@ QDialog::DialogCode GtkPrintDialog::exec()
             gdouble top = gtk_page_setup_get_top_margin(page_setup, unit);
             gdouble right = gtk_page_setup_get_right_margin(page_setup, unit);
             gdouble bottom = gtk_page_setup_get_bottom_margin(page_setup, unit);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_printer->setPageMargins(QMarginsF(left, top, right, bottom), QPageLayout::Millimeter);
+#else
             m_printer->setPageMargins(left, top, right, bottom, qt_unit);
+#endif
 
             GtkPaperSize *paper_size = gtk_page_setup_get_paper_size(page_setup);
             //const char* paper_name = gtk_paper_size_get_display_name(paper_size);
             gdouble width = gtk_paper_size_get_width(paper_size, unit);
             gdouble height = gtk_paper_size_get_height(paper_size, unit);
             QPageSize ps(QSizeF(width, height), QPageSize::Millimeter);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            m_printer->setPageSize(ps);
+#else
             m_printer->setPaperName(ps.name());
             m_printer->setPaperSize(QSizeF(width, height), qt_unit);
+#endif
 
             GtkPageOrientation orient = gtk_page_setup_get_orientation(page_setup);
             QPageLayout plt = m_printer->pageLayout();

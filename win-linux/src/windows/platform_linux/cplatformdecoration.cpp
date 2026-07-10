@@ -23,17 +23,19 @@
  *
 */
 
-#include "cx11decoration.h"
+#include "cplatformdecoration.h"
 #include "windows/cwindowbase.h"
 #include "utils.h"
 #include "defines.h"
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QX11Info>
+#endif
 #include <QTimer>
 #include <QApplication>
 #include "X11/Xlib.h"
 #include "X11/cursorfont.h"
 #include <X11/Xutil.h>
-#include "platform_linux/xcbutils.h"
+#include "platform_linux/linux_window_utils.h"
 
 #define CUSTOM_BORDER_WIDTH MAIN_WINDOW_BORDER_WIDTH
 #define MOTION_TIMER_MS 250
@@ -58,7 +60,7 @@ typedef struct {
 } MotifWmHints;
 
 namespace {
-    enum X11_WindowManagerName {
+    enum Platform_WindowManagerName {
         WM_OTHER,    // We were able to obtain the WM's name, but there is no corresponding entry in this enum.
         WM_UNNAMED,  // Either there is no WM or there is no way to obtain the WM name.
         WM_AWESOME,
@@ -99,15 +101,15 @@ namespace {
 
     constexpr int cacheCount = size(atomsToCache);
 
-    class X11AtomCache {
+    class PlatformAtomCache {
     public:
-        static X11AtomCache& getInstance();
+        static PlatformAtomCache& getInstance();
 
     private:
-        X11AtomCache();
-        ~X11AtomCache() {}
-        X11AtomCache(const X11AtomCache&) = delete;
-        X11AtomCache& operator=(const X11AtomCache&) = delete;
+        PlatformAtomCache();
+        ~PlatformAtomCache() {}
+        PlatformAtomCache(const PlatformAtomCache&) = delete;
+        PlatformAtomCache& operator=(const PlatformAtomCache&) = delete;
 
         Atom getAtom(const char*) const;
 
@@ -118,11 +120,11 @@ namespace {
     };
 
     Atom GetAtom(const char* name) {
-      return X11AtomCache::getInstance().getAtom(name);
+      return PlatformAtomCache::getInstance().getAtom(name);
     }
 
-    X11AtomCache& X11AtomCache::getInstance() {
-        static X11AtomCache _instance;
+    PlatformAtomCache& PlatformAtomCache::getInstance() {
+        static PlatformAtomCache _instance;
         return _instance;
     }
 
@@ -130,12 +132,12 @@ namespace {
         static Display* display = NULL;
         if ( !display )
               display = XOpenDisplay(NULL);
-//              display = QX11Info::display();
+//              display = getXDisplay();
 
         return display;
     }
 
-    X11AtomCache::X11AtomCache() : xdisplay_(getXDisplay()) {
+    PlatformAtomCache::PlatformAtomCache() : xdisplay_(getXDisplay()) {
       std::vector<Atom> cached_atoms(cacheCount);
       XInternAtoms(xdisplay_, const_cast<char**>(atomsToCache), cacheCount, False, cached_atoms.data());
 
@@ -143,7 +145,7 @@ namespace {
         cached_atoms_[atomsToCache[i]] = cached_atoms[i];
     }
 
-    Atom X11AtomCache::getAtom(const char* name) const {
+    Atom PlatformAtomCache::getAtom(const char* name) const {
       const auto it = cached_atoms_.find(name);
       if (it != cached_atoms_.end())
         return it->second;
@@ -157,7 +159,7 @@ namespace {
       return atom;
     }
 
-    auto getX11RootWindow() -> XID {
+    auto getRootWindow() -> XID {
         return DefaultRootWindow(getXDisplay());
     }
 
@@ -214,7 +216,7 @@ namespace {
             supports_ewmh_cached = true;
 
             int wm_window = 0u;
-            if (!get_int_property(getX11RootWindow(), "_NET_SUPPORTING_WM_CHECK", &wm_window)) {
+            if (!get_int_property(getRootWindow(), "_NET_SUPPORTING_WM_CHECK", &wm_window)) {
                 supports_ewmh = false;
                 return false;
             }
@@ -230,7 +232,7 @@ namespace {
     auto get_window_manager_name(std::string* wm_name) -> bool {
         if ( supports_ewmh() ) {
             int wm_window = 0;
-            if (get_int_property(getX11RootWindow(), "_NET_SUPPORTING_WM_CHECK", &wm_window)) {
+            if (get_int_property(getRootWindow(), "_NET_SUPPORTING_WM_CHECK", &wm_window)) {
                 return get_string_property(static_cast<XID>(wm_window), "_NET_WM_NAME", wm_name);
             }
         }
@@ -238,7 +240,7 @@ namespace {
         return false;
     }
 
-    auto guess_window_manager() -> X11_WindowManagerName {
+    auto guess_window_manager() -> Platform_WindowManagerName {
         std::string name;
         if (!get_window_manager_name(&name)) return WM_UNNAMED;
         if (name == "awesome")            return WM_AWESOME;
@@ -263,7 +265,7 @@ namespace {
         if (name == "wmii")               return WM_WMII;
         if (name == "Xfwm4")              return WM_XFWM4;
         if (name == "xmonad")             return WM_XMONAD;
-        return X11_WindowManagerName::WM_OTHER;
+        return Platform_WindowManagerName::WM_OTHER;
     }
 
 }
@@ -289,7 +291,7 @@ namespace WindowHelper {
     }
 }
 
-CX11Decoration::CX11Decoration(QWidget * w)
+CPlatformDecoration::CPlatformDecoration(QWidget * w)
     : m_window(w)
     , m_title(NULL)
     , m_motionTimer(nullptr)
@@ -307,7 +309,7 @@ CX11Decoration::CX11Decoration(QWidget * w)
     m_nBorderSize = CUSTOM_BORDER_WIDTH * dpi_ratio;
 }
 
-CX11Decoration::~CX11Decoration()
+CPlatformDecoration::~CPlatformDecoration()
 {
     freeCursors();
     if ( m_motionTimer ) {
@@ -317,27 +319,27 @@ CX11Decoration::~CX11Decoration()
     }
 }
 
-void CX11Decoration::setTitleWidget(QWidget * w)
+void CPlatformDecoration::setTitleWidget(QWidget * w)
 {
     m_title = w;
     m_title->setMouseTracking(true);
 }
 
-void CX11Decoration::createCursors()
+void CPlatformDecoration::createCursors()
 {
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_TOPLEFT]     = XCreateFontCursor(QX11Info::display(), XC_top_left_corner);
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_TOP]         = XCreateFontCursor(QX11Info::display(), XC_top_side);
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_TOPRIGHT]    = XCreateFontCursor(QX11Info::display(), XC_top_right_corner);
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_RIGHT]       = XCreateFontCursor(QX11Info::display(), XC_right_side);
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_BOTTOMRIGHT] = XCreateFontCursor(QX11Info::display(), XC_bottom_right_corner);
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_BOTTOM]      = XCreateFontCursor(QX11Info::display(), XC_bottom_side);
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_BOTTOMLEFT]  = XCreateFontCursor(QX11Info::display(), XC_bottom_left_corner);
-    m_cursors[k_NET_WM_MOVERESIZE_SIZE_LEFT]        = XCreateFontCursor(QX11Info::display(), XC_left_side);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_TOPLEFT]     = XCreateFontCursor(getXDisplay(), XC_top_left_corner);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_TOP]         = XCreateFontCursor(getXDisplay(), XC_top_side);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_TOPRIGHT]    = XCreateFontCursor(getXDisplay(), XC_top_right_corner);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_RIGHT]       = XCreateFontCursor(getXDisplay(), XC_right_side);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_BOTTOMRIGHT] = XCreateFontCursor(getXDisplay(), XC_bottom_right_corner);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_BOTTOM]      = XCreateFontCursor(getXDisplay(), XC_bottom_side);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_BOTTOMLEFT]  = XCreateFontCursor(getXDisplay(), XC_bottom_left_corner);
+    m_cursors[k_NET_WM_MOVERESIZE_SIZE_LEFT]        = XCreateFontCursor(getXDisplay(), XC_left_side);
 }
 
-void CX11Decoration::freeCursors()
+void CPlatformDecoration::freeCursors()
 {
-    Display * _display = QX11Info::display();
+    Display * _display = getXDisplay();
     std::for_each(m_cursors.begin(), m_cursors.end(),
         [_display](std::pair<int, Cursor> i) {
             if (_display)
@@ -346,7 +348,7 @@ void CX11Decoration::freeCursors()
     );
 }
 
-int CX11Decoration::hitTest(int x, int y) const
+int CPlatformDecoration::hitTest(int x, int y) const
 {
     if (m_bIsMaximized)
         return -1;
@@ -393,7 +395,7 @@ int CX11Decoration::hitTest(int x, int y) const
     return _out_ret;
 }
 
-void CX11Decoration::checkCursor(QPoint & p)
+void CPlatformDecoration::checkCursor(QPoint & p)
 {
     int _hit_test = hitTest(p.x(), p.y());
 
@@ -402,7 +404,7 @@ void CX11Decoration::checkCursor(QPoint & p)
         _cursor = m_cursors[_hit_test];
     }
 
-    Display * _display = QX11Info::display();
+    Display * _display = getXDisplay();
     if (_cursor) {
         if (m_currentCursor == 0 || m_currentCursor != _cursor) {
             m_currentCursor = _cursor;
@@ -419,7 +421,7 @@ void CX11Decoration::checkCursor(QPoint & p)
     }
 }
 
-void CX11Decoration::dispatchMouseDown(QMouseEvent *e)
+void CPlatformDecoration::dispatchMouseDown(QMouseEvent *e)
 {
     if (m_decoration) return;
 
@@ -434,7 +436,7 @@ void CX11Decoration::dispatchMouseDown(QMouseEvent *e)
     }
 }
 
-void CX11Decoration::dispatchMouseMove(QMouseEvent *e)
+void CPlatformDecoration::dispatchMouseMove(QMouseEvent *e)
 {
     if (m_decoration) return;
 
@@ -462,7 +464,7 @@ void CX11Decoration::dispatchMouseMove(QMouseEvent *e)
 
     if (m_nDirection >= 0 && e->buttons() == Qt::LeftButton)
     {
-        Display * xdisplay_ = QX11Info::display();
+        Display * xdisplay_ = getXDisplay();
         Window x_root_window_ = DefaultRootWindow(xdisplay_);
 
         XUngrabPointer(xdisplay_, CurrentTime);
@@ -476,8 +478,13 @@ void CX11Decoration::dispatchMouseMove(QMouseEvent *e)
 //        event.xclient.message_type = XInternAtom(xdisplay_, "_NET_WM_MOVERESIZE", false);
         event.xclient.message_type = GetAtom("_NET_WM_MOVERESIZE");
         event.xclient.format = 32;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        event.xclient.data.l[0] = e->globalPosition().toPoint().x();
+        event.xclient.data.l[1] = e->globalPosition().toPoint().y();
+#else
         event.xclient.data.l[0] = e->globalPos().x();
         event.xclient.data.l[1] = e->globalPos().y();
+#endif
         event.xclient.data.l[2] = m_nDirection;
         event.xclient.data.l[3] = Button1;
         event.xclient.data.l[4] = 0;
@@ -494,16 +501,16 @@ void CX11Decoration::dispatchMouseMove(QMouseEvent *e)
     }
 }
 
-void CX11Decoration::dispatchMouseUp(QMouseEvent *)
+void CPlatformDecoration::dispatchMouseUp(QMouseEvent *)
 {
     m_nDirection = -1;
 }
 
-void CX11Decoration::turnOn()
+void CPlatformDecoration::turnOn()
 {
 //    switchDecoration(true);
 
-//    Display * _xdisplay = QX11Info::display();
+//    Display * _xdisplay = getXDisplay();
 //    Atom _atom = XInternAtom(_xdisplay, "_MOTIF_WM_HINTS", true);
 //    if ( _atom != None  && XDeleteProperty(_xdisplay, m_window->winId(), _atom) < BadValue ) {
 //        m_decoration = true;
@@ -511,7 +518,7 @@ void CX11Decoration::turnOn()
 //    }
 }
 
-void CX11Decoration::turnOff()
+void CPlatformDecoration::turnOff()
 {
 //    switchDecoration(false);
 
@@ -519,7 +526,7 @@ void CX11Decoration::turnOff()
     m_decoration = false;
 }
 
-void CX11Decoration::switchDecoration(bool on)
+void CPlatformDecoration::switchDecoration(bool on)
 {
     if (m_decoration != on) {
         // Signals that the reader of the _MOTIF_WM_HINTS property should pay
@@ -528,7 +535,7 @@ void CX11Decoration::switchDecoration(bool on)
         MotifWmHints motif_hints = {MWM_HINTS_DECORATIONS, 0, 0, 0, 0};
         motif_hints.decorations = int(on);
 
-        Display * _xdisplay = QX11Info::display();
+        Display * _xdisplay = getXDisplay();
 //        Atom hint_atom = XInternAtom(_xdisplay, "_MOTIF_WM_HINTS", false);
         Atom hint_atom = GetAtom("_MOTIF_WM_HINTS");
         if ( hint_atom != None &&
@@ -542,35 +549,35 @@ void CX11Decoration::switchDecoration(bool on)
     }
 }
 
-bool CX11Decoration::isDecorated()
+bool CPlatformDecoration::isDecorated()
 {
     return m_decoration;
 }
 
-void CX11Decoration::setMaximized(bool bVal)
+void CPlatformDecoration::setMaximized(bool bVal)
 {
     m_bIsMaximized = bVal;
 }
 
-void CX11Decoration::onDpiChanged(double f)
+void CPlatformDecoration::onDpiChanged(double f)
 {
     dpi_ratio = f;
     m_nBorderSize = CUSTOM_BORDER_WIDTH * dpi_ratio;
 }
 
-bool CX11Decoration::isNativeFocus()
+bool CPlatformDecoration::isNativeFocus()
 {
-    return XcbUtils::isNativeFocus(m_window->winId());
+    return LinuxWindowUtils::isNativeFocus(m_window->winId());
 }
 
-int CX11Decoration::customWindowBorderWith()
+int CPlatformDecoration::customWindowBorderWith()
 {
     return CUSTOM_BORDER_WIDTH;
 }
 
-void CX11Decoration::raiseWindow()
+void CPlatformDecoration::raiseWindow()
 {
-    Display *disp = QX11Info::display();
+    Display *disp = getXDisplay();
     Atom atom_active_wnd = XInternAtom(disp, "_NET_ACTIVE_WINDOW", False);
     if (atom_active_wnd == None)
         return;
@@ -589,9 +596,9 @@ void CX11Decoration::raiseWindow()
     XFlush(disp);
 }
 
-void CX11Decoration::sendButtonRelease()
+void CPlatformDecoration::sendButtonRelease()
 {
-    Display * xdisplay_ = QX11Info::display();
+    Display * xdisplay_ = getXDisplay();
     Window x_root_window_ = (Window)m_window->effectiveWinId();
 
     XEvent event;
@@ -610,16 +617,16 @@ void CX11Decoration::sendButtonRelease()
     XFlush(xdisplay_);
 }
 
-void CX11Decoration::setCursorPos(int x, int y)
+void CPlatformDecoration::setCursorPos(int x, int y)
 {
-    Display *xdisplay_= QX11Info::display();
+    Display *xdisplay_= getXDisplay();
     Window root_window = DefaultRootWindow(xdisplay_);
     XSelectInput(xdisplay_, root_window, KeyReleaseMask);
     XWarpPointer(xdisplay_, None, root_window, 0, 0, 0, 0, x, y);
     XFlush(xdisplay_);
 }
 
-void CX11Decoration::setMinimized()
+void CPlatformDecoration::setMinimized()
 {
     XClientMessageEvent ev;
     ev.type = ClientMessage;
@@ -628,7 +635,7 @@ void CX11Decoration::setMinimized()
     ev.format = 32;
     ev.data.l[0] = IconicState;
 
-    Display * xdisplay_ = QX11Info::display();
+    Display * xdisplay_ = getXDisplay();
     XSendEvent(xdisplay_, RootWindow(xdisplay_, DefaultScreen(xdisplay_)), False,
                     SubstructureRedirectMask|SubstructureNotifyMask, (XEvent *)&ev);
     sendButtonRelease();

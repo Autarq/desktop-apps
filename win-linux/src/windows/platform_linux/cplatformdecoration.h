@@ -23,8 +23,8 @@
  *
 */
 
-#ifndef CX11DECORATION_H
-#define CX11DECORATION_H
+#ifndef CPLATFORMDECORATION_H
+#define CPLATFORMDECORATION_H
 
 #include <QWidget>
 #include <QMouseEvent>
@@ -35,11 +35,11 @@ namespace WindowHelper {
     auto check_button_state(Qt::MouseButton b) -> bool;
 }
 
-class CX11Decoration
+class CPlatformDecoration
 {
 public:
-    CX11Decoration(QWidget *);
-    virtual ~CX11Decoration();
+    CPlatformDecoration(QWidget *);
+    virtual ~CPlatformDecoration();
 
     void setTitleWidget(QWidget *);
     void dispatchMouseDown(QMouseEvent *);
@@ -83,4 +83,4 @@ private:
     void sendButtonRelease();
 };
 
-#endif // CX11DECORATION_H
+#endif // CPLATFORMDECORATION_H

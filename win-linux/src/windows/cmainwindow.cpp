@@ -76,7 +76,7 @@ CMainWindow::CMainWindow(const QRect &rect) :
         setWindowTitle(tr("Main Window"));
     setAcceptDrops(true);
     if (isCustomWindowStyle()) {
-        CX11Decoration::setTitleWidget(m_boxTitleBtns);
+        CPlatformDecoration::setTitleWidget(m_boxTitleBtns);
         m_pMainPanel->setMouseTracking(true);
         setMouseTracking(true);
     }
@@ -445,7 +445,7 @@ QWidget* CMainWindow::createMainPanel(QWidget *parent)
     pTabBar->setSizePolicy(sizePolicy);
 
     m_boxTitleBtns = createTopPanel(mainPanel);
-    m_boxTitleBtns->setObjectName("CX11Caption");
+    m_boxTitleBtns->setObjectName("CPlatformCaption");
     _pMainGridLayout->addWidget(m_boxTitleBtns, 0, 2, 1, 1);
     m_boxTitleBtns->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 

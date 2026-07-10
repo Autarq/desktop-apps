@@ -26,7 +26,7 @@
 #include "gtkutils.h"
 #include <gdk/gdkx.h>
 #include <string.h>
-#include "platform_linux/xcbutils.h"
+#include "platform_linux/linux_window_utils.h"
 
 
 gboolean set_focus(GtkWidget *dialog)
@@ -34,7 +34,7 @@ gboolean set_focus(GtkWidget *dialog)
     GdkWindow *gdk_dialog = gtk_widget_get_window(dialog);
     if (gdk_dialog) {
         xcb_window_t wnd = (xcb_window_t)gdk_x11_window_get_xid(gdk_dialog);
-        XcbUtils::setNativeFocusTo(wnd);
+        LinuxWindowUtils::setNativeFocusTo(wnd);
     }
     return FALSE;
 }
@@ -45,7 +45,7 @@ gboolean focus_out(gpointer data)
         DialogTag *tag = (DialogTag*)data;
         GtkWidget *dialog = tag->dialog;
         xcb_window_t parent_xid = (xcb_window_t)tag->parent_xid;
-        if (dialog && XcbUtils::isNativeFocus(parent_xid))
+        if (dialog && LinuxWindowUtils::isNativeFocus(parent_xid))
             set_focus(dialog);
     }
     return FALSE;

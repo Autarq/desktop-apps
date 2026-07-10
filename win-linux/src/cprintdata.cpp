@@ -421,7 +421,7 @@ public:
         return rootObject;
     }
 
-public slots:
+public Q_SLOTS:
     void onPrinterCapabilitiesReady(QJsonObject json)
     {
         printers_capabilities_json = json;

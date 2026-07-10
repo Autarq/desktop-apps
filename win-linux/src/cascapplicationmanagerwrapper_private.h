@@ -44,7 +44,7 @@
 # define APP_LAUNCH_NAME "\\DesktopEditors.exe"
 # define RESTART_BATCH "/apprestart.bat"
 #else
-# include "platform_linux/xcbutils.h"
+# include "platform_linux/linux_window_utils.h"
 # include <QProcess>
 # define APP_LAUNCH_NAME "/DesktopEditors"
 # define RESTART_BATCH "/apprestart.sh"
@@ -453,7 +453,7 @@ public:
                     WId wid = (WId)hWnd;
 #else
             std::vector<xcb_window_t> winStack;
-            XcbUtils::getWindowStack(winStack);
+            LinuxWindowUtils::getWindowStack(winStack);
             for (auto it = winStack.rbegin(); it != winStack.rend(); it++) {
                 WId wid = (WId)(*it);
 #endif

@@ -1,7 +1,7 @@
 #define _GNU_SOURCE 1
 #include "xdgdesktopportal.h"
 #include "components/cmessage.h"
-#include "platform_linux/xcbutils.h"
+#include "platform_linux/linux_window_utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
@@ -1079,8 +1079,8 @@ void Free(void* p) {
 void onWindowFound(xcb_window_t w, void *user_data)
 {
     if (QWidget *p = (QWidget*)user_data)
-        XcbUtils::moveWindow(w, p->x() + 20, p->y() + 80);
-    XcbUtils::setNativeFocusTo(w);
+        LinuxWindowUtils::moveWindow(w, p->x() + 20, p->y() + 80);
+    LinuxWindowUtils::setNativeFocusTo(w);
 }
 
 void parseFilterString(Xdg::Mode mode, const QString &filter, FilterItem &filterItem) {
@@ -1133,7 +1133,7 @@ QStringList Xdg::openXdgPortal(QWidget *parent,
     }
 
     char* outPaths;
-    XcbUtils::findWindowAsync("xdg-desktop-portal", (void*)parent, 3000, onWindowFound);
+    LinuxWindowUtils::findWindowAsync("xdg-desktop-portal", (void*)parent, 3000, onWindowFound);
     Result result;
     result = openDialog(parentWid, mode, title.toUtf8().data(),
                         &outPaths,

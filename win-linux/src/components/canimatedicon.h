@@ -24,7 +24,7 @@ private:
     QPixmap * m_image = nullptr;
     QPixmap * m_static = nullptr;
 
-private slots:
+private Q_SLOTS:
     void onSvgRepaint();
 };
 

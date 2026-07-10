@@ -37,7 +37,7 @@ public:
     explicit CFullScrWidget(QWidget *parent = nullptr);
     virtual ~CFullScrWidget();
 
-signals:
+Q_SIGNALS:
     void closeRequest();
 
 private:
