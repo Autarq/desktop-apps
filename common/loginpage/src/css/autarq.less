@@ -1,0 +1,145 @@
+// AUTARQ Office CI overrides.
+// Canonical tokens: repo.mwaysolutions.com/blockscape/autarq/branding
+
+:root,
+:root .theme-classic-light,
+:root .theme-white,
+:root .theme-gray {
+  --background-normal: #fbfaf8;
+  --background-normal-element: #ffffff;
+  --background-normal-element-light: #f9f8f4;
+  --background-tabbar: #f4f2ed;
+  --background-button: #ffffff;
+  --background-accent-button: #123f35;
+  --background-primary-button: #123f35;
+  --background-scroll-thumb: #c8cac5;
+  --background-action-panel: #fbfaf8;
+  --background-icon-normal: #ffffff;
+
+  --highlight-button-hover: #eef5f2;
+  --highlight-button-pressed: #c7dfd6;
+  --highlight-button-pressed-hover: #b5d4c8;
+  --highlight-accent-button-hover: #0e342c;
+  --highlight-accent-button-pressed: #051d18;
+  --highlight-primary-button-hover: #0e342c;
+  --highlight-primary-button-pressed: #051d18;
+  --highlight-text-select: #91d7a8;
+  --highlight-scroll-thumb-hover: #a8aca8;
+  --highlight-sidebar-item-pressed: #eef5f2;
+  --highlight-toolbar-tab-underline-document: #c2ff47;
+
+  --border-tabbar: #ddddd7;
+  --border-divider: #e9e7e3;
+  --border-regular-control: #c8cac5;
+  --border-control-focus: #a9e234;
+  --border-sidebar: #e9e7e3;
+  --border-sidebar-item: #c7dfd6;
+  --border-sidebar-icon: #c7dfd6;
+  --border-radius-sidebar-item: 6px;
+  --border-radius-sidebar-item-icon: 6px;
+  --border-radius-list-files-item: 6px;
+
+  --text-normal: #151d1b;
+  --text-normal-pressed: #051d18;
+  --text-secondary: #727775;
+  --text-tertiary: #a8aca8;
+  --text-link: #123f35;
+  --text-inverse: #f9f8f4;
+  --icon-normal: #123f35;
+  --shadow-sidebar-item-pressed: none;
+  --action-active-font-weight: 600;
+}
+
+:root .theme-dark,
+:root .theme-contrast-dark,
+:root .theme-night {
+  --background-normal: #151d1b;
+  --background-normal-element: #313734;
+  --background-normal-element-light: #424845;
+  --background-tabbar: #051d18;
+  --background-button: #313734;
+  --background-accent-button: #c2ff47;
+  --background-primary-button: #c2ff47;
+  --background-scroll-thumb: #4e5451;
+  --background-action-panel: #151d1b;
+  --background-icon-normal: #313734;
+
+  --highlight-button-hover: #313734;
+  --highlight-button-pressed: #424845;
+  --highlight-button-pressed-hover: #4e5451;
+  --highlight-accent-button-hover: #d3ff78;
+  --highlight-accent-button-pressed: #a9e234;
+  --highlight-primary-button-hover: #d3ff78;
+  --highlight-primary-button-pressed: #a9e234;
+  --highlight-text-select: #2f7a54;
+  --highlight-scroll-thumb-hover: #727775;
+  --highlight-sidebar-item-pressed: #123f35;
+
+  --border-tabbar: #313734;
+  --border-divider: #424845;
+  --border-regular-control: #727775;
+  --border-control-focus: #c2ff47;
+  --border-sidebar: #313734;
+  --border-sidebar-item: #2f7a54;
+  --border-sidebar-icon: #4e5451;
+
+  --text-normal: #f9f8f4;
+  --text-normal-pressed: #c2ff47;
+  --text-secondary: #c8cac5;
+  --text-tertiary: #a8aca8;
+  --text-link: #c2ff47;
+  --text-inverse: #051d18;
+  --icon-normal: #f9f8f4;
+}
+
+body,
+input,
+button,
+#placeholder {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+.main-column.col-left.tool-menu {
+  background: var(--background-tabbar);
+  padding-top: 10px;
+}
+
+.main-column.col-left.tool-menu::before {
+  content: "";
+  display: block;
+  flex: 0 0 42px;
+  margin: 0 8px 8px;
+  background: data-uri('../../res/img/autarq-wordmark-dark.svg') left center / 154px auto no-repeat;
+}
+
+.theme-type-dark .main-column.col-left.tool-menu::before {
+  background-image: data-uri('../../res/img/autarq-wordmark-light.svg');
+}
+
+.tool-menu > li.menu-item:not(.separator):not(.devider) {
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.tool-menu > li.menu-item:not(.separator):not(.devider).selected {
+  box-shadow: none;
+}
+
+.action-panel,
+.recent-panel-container {
+  background: var(--background-action-panel);
+}
+
+button,
+.btn,
+.btn-quick {
+  border-radius: 6px;
+}
+
+.file-list-body .row {
+  border-radius: 6px;
+}
+
+*:focus-visible {
+  outline-color: #a9e234;
+}
