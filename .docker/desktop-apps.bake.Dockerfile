@@ -109,6 +109,10 @@ FROM core-base AS desktop-linux
 
     COPY --from=desktop-common / /desktopeditors/
 
+    RUN rm -rf \
+        "/desktopeditors/editors/sdkjs-plugins/{9DC93CDB-B576-4F0C-B55E-FCC9C48DD777}" \
+        "/desktopeditors/editors/sdkjs-plugins/{F2402876-659F-47FB-A646-67B49F2B5AAA}"
+
     RUN /desktopeditors/converter/allfontsgen \
         --use-system=1 \
         --input=/desktopeditors/fonts \
