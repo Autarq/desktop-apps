@@ -5,7 +5,7 @@
 #define sProductName                    "Office"
 #define sIntProductName                 "DesktopEditors"
 #define sAppName                        str(sCompanyName)
-#define sPackageName                    str(sIntCompanyName + "-" + sIntProductName)
+#define sPackageName                    str(sIntCompanyName + "-" + sProductName)
 #define sAppPublisher                   "AUTARQ"
 #define sAppPublisherURL                "https://autarq.now/"
 #define sAppSupportURL                  "https://autarq.now/"
