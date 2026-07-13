@@ -5,10 +5,19 @@ Nextcloud provider) and Microsoft SharePoint.
 
 ## Supported portal integration
 
-The SharePoint provider can open a SharePoint portal in the desktop shell and
-recognizes the editor page exposed by the ONLYOFFICE/Euro-Office SharePoint
-connector. The connector and a reachable document server must be configured on
-the SharePoint side before documents can be edited and saved from the portal.
+The SharePoint provider opens Microsoft's tenant-independent SharePoint entry
+page at `https://m365.cloud.microsoft/launch/sharepoint`. Microsoft handles the
+work or school account login, MFA, and tenant discovery. The user is then sent
+to the SharePoint start page and can access every site and document library
+their Microsoft account is allowed to use. AUTARQ Office does not ask for a
+tenant URL and does not embed or store Microsoft credentials.
+
+The desktop shell recognizes the editor page exposed by the ONLYOFFICE/
+Euro-Office SharePoint connector. The connector and a reachable document
+server must be configured on the SharePoint side before documents can be
+edited and saved with the integrated editor. Without that connector, the
+SharePoint portal remains usable, but Microsoft controls whether a selected
+file opens in a web app or is downloaded.
 
 ## SharePoint Online native storage
 

@@ -221,6 +221,19 @@
         };
 
         var _do_connect = function(model) {
+            model = model || {};
+
+            const providerConfig = config.portals.providers.find(model.provider);
+            if ( providerConfig && providerConfig.entryPage ) {
+                sdk.execCommand("auth:outer", JSON.stringify({
+                    portal: providerConfig.entryPage,
+                    provider: providerConfig.provider,
+                    type: 'outer',
+                    entrypage: providerConfig.startPage || '/'
+                }));
+                return;
+            }
+
             let _dialog = new DialogConnect({
                 portal: model.path,
                 provider: model.provider,

@@ -1,6 +1,7 @@
 {
     "provider": "sharepoint",
     "name": "Microsoft SharePoint",
+    "entryPage": "https://m365.cloud.microsoft/launch/sharepoint",
     "check": {
         "url": ""
     },
