@@ -2017,10 +2017,6 @@ bool CAscApplicationManagerWrapper::applySettings(const wstring& wstrjson)
             setUserSettings(L"disable-gpu", use_gpu ? L"0" : L"1");
         }
 
-        if ( objRoot.contains("useai") ) {
-            setUserSettings(L"disable-ai", objRoot["useai"].toBool(true) ? L"0" : L"1");
-        }
-
 #ifdef _UPDMODULE
         if ( objRoot.contains("autoupdatemode") ) {
             if (m_pUpdateManager)

@@ -116,5 +116,4 @@ l10n.zh_TW = {
     settOptDescAUpdateSilent: "於背景中下載並安裝更新檔",
     settOptDescAUpdateAsk: "您將收到所有更新步驟的相關通知",
     settGpuUseMode: "當可用時使用圖形加速",
-    settUseAI: '使用 AI功能',
 }

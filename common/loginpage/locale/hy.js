@@ -141,5 +141,4 @@ l10n.hy = {
     colLastOpened: 'Վերջին բացվածը',
     labelDropFile: 'Քաշեք ձեր ֆայլերը այստեղ կամ',
     labelSelectFile: 'Ընտրել ֆայլ',
-    settUseAI: 'Օգտագործեք ԱԲ գործառույթները',
 }

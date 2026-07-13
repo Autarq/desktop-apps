@@ -129,5 +129,4 @@ l10n.vi = {
     colLastOpened: 'Lần mở cuối',
     labelDropFile: 'Kéo tập tin của bạn vào đây hoặc',
     labelSelectFile: 'Chọn tập tin',
-    settUseAI: 'Sử dụng các chức năng AI',
 }

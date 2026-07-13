@@ -141,5 +141,4 @@ l10n.sr_Latn_RS = {
     colLastOpened: 'Poslednje otvoreno',
     labelDropFile: 'Prevucite fajlove ovde ili',
     labelSelectFile: 'Izaberite fajl',
-    settUseAI: 'Koristite AI funkcije',
 }

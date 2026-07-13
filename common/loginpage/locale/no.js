@@ -116,5 +116,4 @@ l10n.no = {
     settOptDescAUpdateSilent: "Last ned og installer oppdateringer i bakgrunnen",
     settOptDescAUpdateAsk: "Du vil bli varslet om alle oppdateringstrinn",
     settGpuUseMode: "Bruk grafikkakselerasjon når tilgjengelig",
-    settUseAI: 'Bruk AI-funksjoner',
 }

@@ -116,5 +116,4 @@ l10n.gl = {
     settOptDescAUpdateSilent: "Descargar actualizacións e preguntar antes de instalalas",
     settOptDescAUpdateAsk: "Notificaráselle sobre todos os pasos de actualización",
     settGpuUseMode: "Utilizar a aceleración de gráficos cando estea dispoñible",
-    settUseAI: 'Usar funcións de IA',
 }

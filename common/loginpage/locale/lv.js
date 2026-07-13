@@ -141,5 +141,4 @@ l10n.lv = {
     colLastOpened: 'Pēdējo reizi atvērts',
     labelDropFile: 'Velciet failus šeit vai',
     labelSelectFile: 'Izvēlieties failu',
-    settUseAI: 'Izmantojiet MI funkcijas',
 }

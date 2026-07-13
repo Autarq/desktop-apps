@@ -129,5 +129,4 @@ l10n.tr = {
     colLastOpened: 'Son açılış tarihi',
     labelDropFile: 'Dosyalarınızı buraya sürükleyin veya',
     labelSelectFile: 'Dosya seç',
-    settUseAI: 'Yapay zeka özelliklerini kullanın',
 }

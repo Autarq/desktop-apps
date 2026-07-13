@@ -127,5 +127,4 @@ l10n.ar_SA = {
     colFileName: "اسم الملف",
     colLocation: 'الموقع',
     colLastOpened: 'مفتوحة مؤخرا',
-    settUseAI: 'استخدم وظائف الذكاء الاصطناعي',
 }

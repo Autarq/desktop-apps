@@ -1,14 +1,15 @@
 {
-    "provider": "nextcloud",
-    "name": "AUTARQ Cloud",
+    "provider": "sharepoint",
+    "name": "Microsoft SharePoint",
     "check": {
-        "url": "status.php"
+        "url": ""
     },
-    "editorPage" : "/apps/onlyoffice/",
-    "cryptoSupport" : "true",
-    "order": 1,
+    "editorPage": "regex:(\\/_layouts\\/15\\/Onlyoffice\\/editorPage\\.aspx)",
+    "startPage": "/",
+    "cryptoSupport": "false",
+    "order": 2,
     "icons": {
-        "themeLight":{
+        "themeLight": {
             "connectionsList": "./assets/listicon.svg",
             "buttonLogo": "./assets/buttonlogo.svg"
         },

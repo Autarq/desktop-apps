@@ -116,5 +116,4 @@ l10n.da = {
     settOptDescAUpdateSilent: 'Download opdateringer og anmod før installation',
     settOptDescAUpdateAsk: 'Du vil blive underrettet om alle opdateringstrin',
     settGpuUseMode: "Benyt grafikacceleration når det er muligt",
-    settUseAI: 'Brug AI-funktioner',
 }

@@ -116,5 +116,4 @@ l10n.ca = {
     settOptDescAUpdateSilent: "Descarregar actualitzacions i preguntar abans d'instal·lar-les",
     settOptDescAUpdateAsk: "Se li notificaran tots els passos de les actualitzacions",
     settGpuUseMode: "Utilitza gràfics d’acceleració quan estiguin disponibles",
-    settUseAI: 'Utilitza funcions d\'IA',
 }

@@ -115,5 +115,4 @@ l10n.si = {
     settOptDescAUpdateSilent: "පසුබිමෙන් යාවත්කාල බාගෙන ස්ථාපනය කරන්න",
     settOptDescAUpdateAsk: "යළුම යාවත්කාල පියවර ගැන ඔබට දැනුම් දෙනු ඇත",
     settGpuUseMode: "චිත්‍රණ ත්වරණය තිබෙන විට භාවිතා කරන්න",
-    settUseAI: 'AI කාර්යයන් භාවිතා කරන්න',
 }

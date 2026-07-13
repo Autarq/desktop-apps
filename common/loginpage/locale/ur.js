@@ -116,5 +116,4 @@ l10n.ur = {
     settOptDescAUpdateSilent: "پس منظر میں اپ ڈیٹ ڈاؤن لوڈ اور انسٹال کریں",
     settOptDescAUpdateAsk: "آپ کو اپ ڈیٹ کے تمام مراحل کے بارے میں مطلع کیا جائے گا",
     settGpuUseMode: "جب دستیاب ہو تو گرافکس ایکسلریشن استعمال کریں",
-    settUseAI: 'AI افعال استعمال کریں۔',
 }

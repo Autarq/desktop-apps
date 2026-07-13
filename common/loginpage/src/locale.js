@@ -167,7 +167,6 @@ l10n.en = {
     colLastOpened: 'Last opened',
     labelDropFile: 'Drag your files here or',
     labelSelectFile: 'Select file',
-    settUseAI: 'Use AI functions',
 }
 
 

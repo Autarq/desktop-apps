@@ -116,5 +116,4 @@ l10n.hr = {
     settOptDescAUpdateSilent: "Preuzmi ažuriranja i pitaj prije instalacije",
     settOptDescAUpdateAsk: "Bit ćete obaviješteni o svim koracima ažuriranja",
     settGpuUseMode: "Koristite grafičko ubrzanje ako je dostupno",
-    settUseAI: 'Koristite AI funkcije',
 }

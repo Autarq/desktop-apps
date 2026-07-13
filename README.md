@@ -9,7 +9,7 @@ This repository contains the frontend shell for [AUTARQ Office](https://github.c
 ## **Why choose Desktop Editors? ✨**
 
 * **✈️ Work offline, anytime:** Create and edit documents locally without needing an internet connection. Your work is always available on your machine.  
-* **☁️ Connect to the cloud:** Integrate seamlessly with Seafile, ownCloud, Nextcloud and other platforms to co-author documents with your team in real time.  
+* **☁️ Connect to the cloud:** Use AUTARQ Cloud (Nextcloud) or a configured Microsoft SharePoint portal. See [the SharePoint storage notes](docs/sharepoint-storage.md).
 * **📄 Unrivaled compatibility:** Enjoy flawless work with DOCX, XLSX, PPTX, and PDF files. We also support all other popular formats, including, ODT, ODS, ODP, CSV, etc.  
 * **🛠️ All the tools you need:** Get a complete set of professional editing and formatting tools for creating stunning text documents, spreadsheets, and presentations.  
 * **📝 More than just docs:** View, annotate, and convert PDF files. Create and fill out complex, interactive PDF forms. View and navigate diagrams right in the app.

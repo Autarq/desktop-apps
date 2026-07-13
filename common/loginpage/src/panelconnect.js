@@ -264,7 +264,8 @@
             collection.empty();
 
             /* fill portals list */
-            var portals = PortalsStore.portals();
+            var portals = PortalsStore.portals().filter(portal =>
+                config.portals.providers.find(portal.provider));
 
             if (portals.length) {
                 let auth_arr = {};

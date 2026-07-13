@@ -116,5 +116,4 @@ l10n.sv = {
     settOptDescAUpdateSilent: "Ladda ner uppdateringar och fråga innan installation",
     settOptDescAUpdateAsk: "Du kommer att meddelas om alla steg i uppdateringen",
     settGpuUseMode: "Använd grafikacceleration om tillgängligt",
-    settUseAI: 'Använd AI-funktioner',
 }

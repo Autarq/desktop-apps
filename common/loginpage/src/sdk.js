@@ -67,9 +67,12 @@
     sdk.externalClouds = function() {
         let _clouds = sdk.GetExternalClouds();
         if ( _clouds ) {
+            const supportedProviders = ['nextcloud', 'sharepoint'];
+            _clouds = _clouds.filter(cloud => supportedProviders.includes(cloud.provider || cloud.id));
+
             for (let c of _clouds) {
                 (!c.check || !c.check.url) && (c.check = {url:''});
-                if ( !c.check.url.startsWith('/') )
+                if ( c.check.url && !c.check.url.startsWith('/') )
                     c.check.url = '/'.concat(c.check.url);
                 if ( !c.provider && !!c.id )
                     c.provider = c.id;
@@ -98,10 +101,6 @@
                     c.extraLogout = [c.extraLogout];
             }
 
-            const _only_index = _clouds.findIndex(i => i.provider == 'onlyoffice');
-            if ( _only_index > 0 ) {
-                _clouds.unshift(_clouds.splice(_only_index, 1)[0]);
-            }
         } else {
             // _clouds = [{ provider: "asc",name: "ONLYOFFICE",check: {url:"/api/2.0/capabilities.json"} }];
             _clouds = [];

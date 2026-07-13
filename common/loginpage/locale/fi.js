@@ -129,5 +129,4 @@ l10n.fi = {
     colLastOpened: 'Viimeksi avattu',
     labelDropFile: 'Vedä tiedostosi tähän tai',
     labelSelectFile: 'Valitse tiedosto',
-    settUseAI: 'Käytä tekoälyominaisuuksia',
 }

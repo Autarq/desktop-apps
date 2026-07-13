@@ -141,5 +141,4 @@ l10n.fr = {
     colLastOpened: 'Récemment ouvert',
     labelDropFile: 'Glissez vos fichiers ici ou',
     labelSelectFile: 'Sélectionnez le fichier',
-    settUseAI: 'Utiliser les fonctions IA',
 }

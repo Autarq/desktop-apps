@@ -141,5 +141,4 @@ l10n.sk = {
     colLastOpened: 'Naposledy otvorené',
     labelDropFile: 'Presuňte sem svoje súbory alebo',
     labelSelectFile: 'Vybrať súbor',
-    settUseAI: 'Používajte funkcie AI',
 }

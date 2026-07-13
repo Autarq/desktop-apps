@@ -115,5 +115,4 @@ l10n.id = {
     settOptDescAUpdateSilent: "Download update dan tanya sebelum instalasi",
     settOptDescAUpdateAsk: "Anda akan mendapatkan notifikasi langkah untuk melakukan update",
     settGpuUseMode: "Gunakan akselerasi grafik jika tersedia",
-    settUseAI: 'Gunakan fungsi AI',
 }

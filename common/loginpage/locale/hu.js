@@ -133,5 +133,4 @@ l10n.hu = {
     colLastOpened: 'Utolsó megnyitás',
     labelDropFile: 'Húzd ide a fájljaidat, vagy',
     labelSelectFile: 'Válassza ki a fájlt',
-    settUseAI: 'Használjon AI funkciókat',
 }

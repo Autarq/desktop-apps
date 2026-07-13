@@ -129,5 +129,4 @@ l10n.pl = {
     colLastOpened: 'Ostatnio otworzony',
     labelDropFile: 'Przeciągnij pliki tutaj lub',
     labelSelectFile: 'Wybierz plik',
-    settUseAI: 'Użyj funkcji AI',
 }

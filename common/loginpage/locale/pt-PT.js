@@ -141,5 +141,4 @@ l10n.pt_PT = {
     colLastOpened: 'Última abertura',
     labelDropFile: 'Arraste os seus ficheiros para aqui ou',
     labelSelectFile: 'Selecione o ficheiro',
-    settUseAI: 'Utilizar funções de IA',
 }

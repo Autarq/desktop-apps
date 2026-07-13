@@ -141,5 +141,4 @@ l10n.sr_Cyrl_RS = {
     colLastOpened: 'Последње отворено',
     labelDropFile: 'Преувлачите фајлове овде или',
     labelSelectFile: 'Изаберите фајл',
-    settUseAI: 'Користите ВИ функције',
 }

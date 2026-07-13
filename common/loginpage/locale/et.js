@@ -116,5 +116,4 @@ l10n.et = {
     settOptDescAUpdateSilent: "Uuenduste allalaadimine ja küsimine enne paigaldamist",
     settOptDescAUpdateAsk: "Teid teavitatakse kõikidest uuenduste sammudest",
     settGpuUseMode: "Kasutage võimalusel graafikakiirendust",
-    settUseAI: 'Kasutage tehisintellekti funktsioone',
 }

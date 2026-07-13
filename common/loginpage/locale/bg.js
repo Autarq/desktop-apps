@@ -129,5 +129,4 @@ l10n.bg = {
     colLastOpened: 'Последно отворен',
     labelDropFile: 'Завлечете файловете си тук или',
     labelSelectFile: 'Изберете файл',
-    settUseAI: 'Използвайте функции на AI',
 }
